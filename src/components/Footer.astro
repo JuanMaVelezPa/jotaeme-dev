@@ -1,9 +1,95 @@
 ---
-import site from '../content/site.json';
+import { ui } from '../i18n';
+import { content, getLocale } from '../lib/content';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const network = [
+	{ name: 'jotaeme.dev', color: 'var(--jm-bone)' },
+	{ name: 'apps', color: 'var(--jm-apps)' },
+	{ name: 'free', color: 'var(--jm-free)' },
+	{ name: 'lab', color: 'var(--jm-lab)' },
+];
 ---
 
 <footer class="site-footer">
-	<div class="container">
-		<p>© {new Date().getFullYear()} {site.nombre} · {site.ubicacion}</p>
+	<div class="inner">
+		<span class="copy">{content[locale].pie}</span>
+		<div class="side">
+			<ul class="network" aria-label={t.footerNetwork}>
+				{
+					network.map((item) => (
+						<li style={`--bar: ${item.color}`}>
+							<span class="bar" aria-hidden="true" />
+							{item.name}
+						</li>
+					))
+				}
+			</ul>
+			<nav aria-label={t.footerNav}>
+				<a href="#top">{t.top}</a>
+			</nav>
+		</div>
 	</div>
 </footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--jm-border);
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+		color: var(--jm-dim);
+	}
+
+	.inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem 2rem;
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 1.75rem 1rem;
+	}
+
+	.side {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.25rem 1.5rem;
+	}
+
+	.network {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 1.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.network li,
+	.copy,
+	a {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		min-height: 44px;
+		margin: 0;
+	}
+
+	.bar {
+		width: 3px;
+		height: 13px;
+		background: var(--bar);
+	}
+
+	a {
+		color: var(--jm-dim);
+		text-decoration: none;
+	}
+
+	a:hover {
+		color: var(--jm-bone);
+	}
+</style>

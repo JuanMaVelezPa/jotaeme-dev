@@ -1,0 +1,209 @@
+---
+import { ui } from '../i18n';
+import { content, getLocale } from '../lib/content';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const data = content[locale].ecosistema;
+---
+
+<section class="ecosystem" id={t.ecosystem.id} aria-labelledby={`${t.ecosystem.id}-title`}>
+	<div class="head">
+		<div class="titles">
+			<p class="section-label" aria-hidden="true">05 — {data.titulo}</p>
+			<h2 id={`${t.ecosystem.id}-title`}>{data.titular}</h2>
+		</div>
+		<p class="intro-text">{data.descripcion}</p>
+	</div>
+	<ul class="grid">
+		{
+			data.tarjetas.map((card) => (
+				<li class={`card card-hover reveal c-${card.id}`}>
+					<div class="top">
+						<span class="tile" aria-hidden="true">jm<span class="cursor" /></span>
+						<span class="status"><span class="status-dot" aria-hidden="true" />{card.estado}</span>
+					</div>
+					<span class="wordmark" aria-hidden="true">jm<span class="cursor" /><span class="sub">{card.id}</span></span>
+					<div class="text">
+						<h3>{card.titulo}</h3>
+						<p>{card.descripcion}</p>
+					</div>
+					<p class="host">{card.id}.jotaeme.dev</p>
+				</li>
+			))
+		}
+	</ul>
+</section>
+
+<style>
+	.ecosystem {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 0 1rem 8rem;
+	}
+
+	.head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+
+	.titles {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.section-label {
+		margin: 0;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: var(--jm-text-h2);
+		font-weight: 500;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+	}
+
+	.intro-text {
+		max-width: 420px;
+		margin: 0;
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--jm-muted);
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.4rem;
+		margin: 0;
+		padding: 2rem;
+		border: 1px solid var(--jm-border);
+		border-radius: 22px;
+		background: var(--jm-surface-2);
+	}
+
+	.c-apps { --sub: var(--jm-apps); }
+	.c-free { --sub: var(--jm-free); }
+	.c-lab { --sub: var(--jm-lab); }
+
+	.card:hover {
+		border-color: color-mix(in srgb, var(--sub), transparent 45%);
+	}
+
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.tile {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		width: 52px;
+		height: 52px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: 13px;
+		background: var(--jm-surface);
+		font-family: var(--jm-font-mono);
+		font-weight: 800;
+		font-size: 21px;
+		line-height: 1;
+		letter-spacing: -0.07em;
+	}
+
+	.cursor {
+		display: inline-block;
+		width: 0.07em;
+		height: 0.82em;
+		margin: 0.08em 0.08em 0 0.06em;
+		background: var(--sub);
+	}
+
+	.status {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 6px 12px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-pill);
+		font-size: 12px;
+		line-height: 1.4;
+		color: var(--jm-muted);
+	}
+
+	.status-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--sub);
+	}
+
+	.wordmark {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--jm-font-mono);
+		font-weight: 800;
+		font-size: 40px;
+		line-height: 1;
+		letter-spacing: -0.07em;
+	}
+
+	.sub {
+		color: var(--sub);
+		letter-spacing: -0.05em;
+	}
+
+	.text {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	h3 {
+		margin: 0;
+		font-size: 22px;
+		font-weight: 600;
+	}
+
+	.text p {
+		margin: 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--jm-muted);
+	}
+
+	.host {
+		margin: 0;
+		padding-top: 18px;
+		border-top: 1px solid var(--jm-border);
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+		color: var(--jm-dim);
+	}
+
+	@media (max-width: 820px) {
+		.ecosystem {
+			padding-bottom: 5rem;
+		}
+	}
+</style>

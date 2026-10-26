@@ -1,4 +1,6 @@
 ---
+import '../styles/tokens.css';
+import '../styles/fonts.css';
 import '../styles/global.css';
 ---
 
@@ -11,10 +13,22 @@ import '../styles/global.css';
 		<title>404 · Page not found</title>
 	</head>
 	<body>
-		<main class="container hero">
+		<main>
 			<h1>404</h1>
 			<p>Page not found. / Página no encontrada.</p>
 			<p><a href="/">English</a> · <a href="/es/">Español</a></p>
 		</main>
 	</body>
 </html>
+
+<style>
+	main {
+		max-width: 46rem;
+		margin: 0 auto;
+		padding: 6rem 1rem;
+	}
+
+	p {
+		color: var(--jm-muted);
+	}
+</style>

@@ -1,0 +1,98 @@
+---
+import { ui } from '../i18n';
+import site from '../content/site.json';
+import { content, getLocale } from '../lib/content';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const words = content[locale].contacto.titular.split(' ');
+const lead = words.slice(0, -2).join(' ');
+const tail = words.slice(-2).join(' ');
+---
+
+<section class="contact" id={t.contact.id} aria-labelledby={`${t.contact.id}-title`}>
+	<div class="panel reveal">
+		<p class="section-label" aria-hidden="true">06 — {t.contact.label}</p>
+		<h2 id={`${t.contact.id}-title`}>{lead}<br /><span class="dim">{tail}</span></h2>
+		<a class="mail" href={`mailto:${site.email}`}>{site.email}</a>
+		<div class="links">
+			<a class="pill" href={site.enlaces.linkedin}>LinkedIn ↗</a>
+			<a class="pill" href={site.enlaces.github}>GitHub ↗</a>
+			<a class="pill pill-light" href={`/${site.cv.en}`} download>{t.cvEn}</a>
+			<a class="pill pill-light" href={`/${site.cv.es}`} download>{t.cvEs}</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact {
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 0 1rem 6rem;
+	}
+
+	.panel {
+		display: flex;
+		flex-direction: column;
+		gap: 2.25rem;
+		padding: clamp(36px, 6vw, 88px);
+		border: 1px solid var(--jm-border);
+		border-radius: 28px;
+		background: var(--jm-surface-2);
+	}
+
+	.section-label {
+		margin: 0;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(36px, 5.6vw, 80px);
+		font-weight: 600;
+		line-height: 1;
+		letter-spacing: -0.045em;
+	}
+
+	.dim {
+		color: var(--jm-dim);
+	}
+
+	.mail {
+		align-self: flex-start;
+		padding-bottom: 6px;
+		border-bottom: 1px solid var(--jm-border-strong);
+		font-size: clamp(20px, 2.4vw, 32px);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		text-decoration: none;
+		overflow-wrap: anywhere;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.pill {
+		display: inline-flex;
+		align-items: center;
+		min-height: 48px;
+		padding: 0 22px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-pill);
+		font-size: 15px;
+		text-decoration: none;
+	}
+
+	.pill-light {
+		background: var(--jm-bone);
+		border-color: var(--jm-bone);
+		color: var(--jm-ink);
+		font-weight: 600;
+	}
+
+	.pill-light:hover {
+		color: var(--jm-ink);
+	}
+</style>

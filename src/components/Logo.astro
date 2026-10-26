@@ -1,0 +1,86 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { ui } from '../i18n';
+
+const { wordmark = false } = Astro.props;
+const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
+---
+
+<a class="logo" href={getRelativeLocaleUrl(locale)} aria-label={ui[locale].logo}>
+	<span aria-hidden="true">jm</span><span class="logo-cursor" aria-hidden="true"></span>
+	{wordmark && (
+		<>
+			<span class="logo-divider" aria-hidden="true"></span>
+			<span class="logo-wordmark" aria-hidden="true">jotaeme<span class="logo-dev">.dev</span></span>
+		</>
+	)}
+</a>
+
+<style>
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--jm-font-mono);
+		font-weight: 800;
+		font-size: var(--logo-size, 28px);
+		line-height: 1;
+		letter-spacing: -0.07em;
+		text-decoration: none;
+		color: var(--jm-bone);
+	}
+
+	.logo-divider {
+		width: 1px;
+		height: 24px;
+		margin: 0 14px;
+		background: var(--jm-border-strong);
+	}
+
+	.logo-wordmark {
+		font-family: var(--jm-font-sans);
+		font-weight: 600;
+		font-size: 18px;
+		letter-spacing: -0.02em;
+	}
+
+	.logo-dev {
+		color: var(--jm-accent);
+	}
+
+	@media (max-width: 520px) {
+		.logo-divider,
+		.logo-wordmark {
+			display: none;
+		}
+	}
+
+	.logo:hover {
+		color: var(--jm-bone);
+	}
+
+	.logo-cursor {
+		display: inline-block;
+		width: 0.07em;
+		height: 0.82em;
+		margin-left: 0.06em;
+		margin-top: 0.08em;
+		background: var(--jm-accent);
+		animation: jm-blink var(--jm-dur-blink) steps(1) infinite;
+	}
+
+	@keyframes jm-blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	:global(.loader-on) .logo-cursor {
+		animation-play-state: paused;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.logo-cursor {
+			animation: none;
+		}
+	}
+</style>

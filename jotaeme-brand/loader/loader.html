@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jotaeme.dev — loader demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&display=swap">
+<link rel="stylesheet" href="loader.css">
+<style>body{margin:0;background:#0A0B0D;color:#ECEAE4;font-family:system-ui,sans-serif}</style>
+</head>
+<body>
+
+<!-- 1) Paste right after <body> -->
+<div class="jm-loader" id="jm-loader" role="status" aria-live="polite" aria-label="Loading jotaeme.dev">
+  <span class="jm-loader__mark" aria-hidden="true"><span class="j">j</span><span class="m">m</span><span class="jm-cursor"></span></span>
+  <div class="jm-loader__bar" aria-hidden="true"><span></span></div>
+  <p class="jm-loader__text"><b>~</b> booting jotaeme.dev…</p>
+</div>
+
+<main style="padding:48px">
+  <h1>Page content</h1>
+  <p>Inline states:</p>
+  <p><span class="jm-inline" style="font-size:28px">jm<span class="jm-cursor"></span></span></p>
+  <p><button class="jm-btn-loading" disabled style="padding:12px 22px;border:0;border-radius:999px;background:#E8A55B;color:#0A0B0D;font-weight:600">Sending</button></p>
+</main>
+
+<!-- 2) Paste before </body>: hides the loader once the page has loaded (min. 900 ms so the "jm" typing is seen) -->
+<script>
+  (function () {
+    var start = Date.now();
+    window.addEventListener('load', function () {
+      var wait = Math.max(0, 900 - (Date.now() - start));
+      setTimeout(function () {
+        var el = document.getElementById('jm-loader');
+        if (!el) return;
+        el.classList.add('is-done');
+        setTimeout(function () { el.remove(); }, 600);
+      }, wait);
+    });
+  })();
+</script>
+</body>
+</html>
