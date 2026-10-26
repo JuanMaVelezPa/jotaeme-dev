@@ -1,9 +1,12 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import site from '../content/site.json';
-import Header from '../components/Header.astro';
+import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Loader from '../components/Loader.astro';
 import { ui } from '../i18n';
+import '../styles/tokens.css';
+import '../styles/fonts.css';
 import '../styles/global.css';
 
 interface Props {
@@ -19,6 +22,7 @@ const ogLocales = { en: 'en_US', es: 'es_CO' } as const;
 
 const urlFor = (lang: string) => new URL(getRelativeLocaleUrl(lang), Astro.site).href;
 const canonical = urlFor(locale);
+const ogImage = new URL('/og.png', Astro.site).href;
 
 const jsonLd = {
 	'@context': 'https://schema.org',
@@ -39,9 +43,24 @@ const jsonLd = {
 <html lang={locale}>
 	<head>
 		<meta charset="utf-8" />
+		<script is:inline>
+			var root = document.documentElement;
+			root.classList.add('js');
+			try {
+				if (!sessionStorage.getItem('jm:loader-seen')) {
+					sessionStorage.setItem('jm:loader-seen', '1');
+					root.classList.add('loader-on');
+				}
+			} catch (e) {}
+		</script>
+		<link rel="icon" href="/favicon.ico" sizes="48x48" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="theme-color" content="#0A0B0D" />
 		<meta name="viewport" content="width=device-width" />
+		<link rel="preload" href="/fonts/InterTight-Variable.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/JetBrainsMono-ExtraBold.woff2" as="font" type="font/woff2" crossorigin />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
@@ -54,14 +73,19 @@ const jsonLd = {
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta property="og:locale" content={ogLocales[locale as keyof typeof ogLocales]} />
 		<meta property="og:locale:alternate" content={ogLocales[other]} />
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
 	<body>
+		<Loader />
 		<a class="skip-link" href="#main">{skip}</a>
-		<Header />
-		<main id="main" class="container">
+		<Nav />
+		<main id="main">
 			<slot />
 		</main>
 		<Footer />

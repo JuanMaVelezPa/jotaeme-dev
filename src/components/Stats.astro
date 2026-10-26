@@ -1,0 +1,64 @@
+---
+import { ui } from '../i18n';
+import es from '../content/es.json';
+import en from '../content/en.json';
+
+const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
+const stats = (locale === 'es' ? es : en).estadisticas;
+---
+
+<section class="stats" aria-label={ui[locale].highlights}>
+	<ul class="reveal">
+		{
+			stats.map((stat) => (
+				<li>
+					<span class="value">{stat.valor}</span>
+					<span class="label">{stat.etiqueta}</span>
+				</li>
+			))
+		}
+	</ul>
+</section>
+
+<style>
+	.stats {
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 0 1rem 5rem;
+	}
+
+	ul {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		background: var(--jm-border);
+		border: 1px solid var(--jm-border);
+		border-radius: 20px;
+		overflow: hidden;
+	}
+
+	li {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 2rem;
+		background: var(--jm-surface-2);
+	}
+
+	.value {
+		font-size: 48px;
+		font-weight: 600;
+		line-height: 1.1;
+		letter-spacing: -0.04em;
+	}
+
+	.label {
+		font-size: 15px;
+		line-height: 1.5;
+		color: var(--jm-muted);
+	}
+</style>

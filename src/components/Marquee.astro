@@ -1,0 +1,54 @@
+---
+interface Props {
+	labels: string[];
+}
+
+const { labels } = Astro.props;
+---
+
+<div class="marquee" aria-hidden="true">
+	<div class="track">
+		{[0, 1].map(() => labels.map((label) => <span class="item">{label}<span class="sep">✦</span></span>))}
+	</div>
+</div>
+
+<style>
+	.marquee {
+		overflow: hidden;
+		border-block: 1px solid var(--jm-border);
+		background: var(--jm-surface-2);
+		margin-bottom: 5rem;
+	}
+
+	.track {
+		display: flex;
+		width: max-content;
+		padding: 1.1rem 0;
+	}
+
+	.item {
+		display: inline-flex;
+		align-items: center;
+		gap: 1.75rem;
+		padding-right: 1.75rem;
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+		letter-spacing: 0.04em;
+		color: var(--jm-muted);
+		white-space: nowrap;
+	}
+
+	.sep {
+		color: var(--jm-dim);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.track {
+			animation: marquee 40s linear infinite;
+		}
+	}
+
+	@keyframes marquee {
+		to { transform: translateX(-50%); }
+	}
+</style>

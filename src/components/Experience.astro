@@ -1,0 +1,147 @@
+---
+import { ui } from '../i18n';
+import { content, getLocale } from '../lib/content';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale];
+const data = content[locale];
+---
+
+<section class="wide" id={t.experience.id} aria-labelledby={`${t.experience.id}-title`}>
+	<div class="side">
+		<p class="section-label" aria-hidden="true">02 — {t.experience.label}</p>
+		<h2 id={`${t.experience.id}-title`}>{data.experiencia_seccion.titulo}</h2>
+	</div>
+	<ol class="timeline">
+		{
+			data.experiencia.map((job, i) => (
+				<li class:list={['job', 'reveal', { current: i === 0 }]}>
+					<span class="dot" aria-hidden="true" />
+					<p class="period">{job.periodo}</p>
+					<h3>{job.cargo}</h3>
+					<p class="company">{job.empresa}</p>
+					<ul>
+						{job.puntos.map((punto) => <li>{punto}</li>)}
+					</ul>
+				</li>
+			))
+		}
+	</ol>
+</section>
+
+<style>
+	.wide {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4rem;
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 0 1rem 8rem;
+	}
+
+	.side {
+		display: flex;
+		flex: 1 1 300px;
+		flex-direction: column;
+		gap: 1rem;
+		min-width: 0;
+	}
+
+	.section-label {
+		margin: 0;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: 32px;
+		font-weight: 500;
+		line-height: 1.15;
+		letter-spacing: -0.03em;
+	}
+
+	.timeline {
+		display: flex;
+		flex: 999 1 640px;
+		flex-direction: column;
+		min-width: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.job {
+		position: relative;
+		margin: 0;
+		padding: 0 0 3.5rem 2.25rem;
+		border-left: 1px solid var(--jm-border);
+	}
+
+	.job:last-child {
+		padding-bottom: 0.5rem;
+	}
+
+	.dot {
+		position: absolute;
+		left: -6px;
+		top: 6px;
+		box-sizing: border-box;
+		width: 11px;
+		height: 11px;
+		border: 1px solid var(--jm-dim);
+		border-radius: 50%;
+		background: var(--jm-ink);
+	}
+
+	.current .dot {
+		border-color: var(--jm-bone);
+		background: var(--jm-bone);
+	}
+
+	.period {
+		margin: 0 0 0.5rem;
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+		text-transform: uppercase;
+		color: var(--jm-dim);
+	}
+
+	h3 {
+		margin: 0;
+		font-size: 26px;
+		font-weight: 600;
+		line-height: 1.25;
+		letter-spacing: -0.02em;
+	}
+
+	.company {
+		margin: 0.4rem 0 1.25rem;
+		font-size: 17px;
+		color: var(--jm-muted);
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin: 0;
+		padding-left: 18px;
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--jm-muted);
+	}
+
+	ul li {
+		margin: 0;
+	}
+
+	@media (max-width: 820px) {
+		.wide {
+			gap: 1.5rem;
+			padding-bottom: 5rem;
+		}
+
+		h3 {
+			font-size: 22px;
+		}
+	}
+</style>

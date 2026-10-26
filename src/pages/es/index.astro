@@ -1,53 +1,26 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Section from '../../components/Section.astro';
-import { ui } from '../../i18n';
-import site from '../../content/site.json';
+import Hero from '../../components/Hero.astro';
+import Stats from '../../components/Stats.astro';
+import Marquee from '../../components/Marquee.astro';
+import { marqueeLabels } from '../../lib/skills';
+import About from '../../components/About.astro';
+import Experience from '../../components/Experience.astro';
+import Stack from '../../components/Stack.astro';
+import Services from '../../components/Services.astro';
+import Ecosystem from '../../components/Ecosystem.astro';
+import Contact from '../../components/Contact.astro';
 import es from '../../content/es.json';
 ---
 
 <Base title={es.meta.titulo} description={es.meta.descripcion}>
-	<header class="hero">
-		<h1>{site.nombre}</h1>
-		<p>{es.titular}</p>
-	</header>
-	<Section id={ui.es.about.id} heading={ui.es.about.label}>
-		<p>{es.resumen}</p>
-	</Section>
-	<Section id={ui.es.experience.id} heading={ui.es.experience.label}>
-		{es.experiencia.map((job) => (
-			<article>
-				<h3>{job.cargo} · {job.empresa}</h3>
-				<p class="period">{job.periodo}</p>
-				<ul>
-					{job.puntos.map((punto) => <li>{punto}</li>)}
-				</ul>
-			</article>
-		))}
-		<h3>{ui.es.skills}</h3>
-		<dl>
-			{es.habilidades.map((grupo) => (
-				<>
-					<dt>{grupo.grupo}</dt>
-					<dd>{grupo.items.join(', ')}</dd>
-				</>
-			))}
-		</dl>
-	</Section>
-	<Section id={ui.es.services.id} heading={ui.es.services.label}>
-		<ul>
-			{es.servicios.map((servicio) => <li>{servicio}</li>)}
-		</ul>
-	</Section>
-	<Section id={ui.es.contact.id} heading={ui.es.contact.label}>
-		<ul class="contact-list">
-			<li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-			<li><a href={site.enlaces.linkedin}>LinkedIn</a></li>
-			<li><a href={site.enlaces.github}>GitHub</a></li>
-		</ul>
-		<p class="cv-links">
-			<a href={`/${site.cv.es}`} download>{ui.es.cv.es}</a>
-			<a href={`/${site.cv.en}`} download>{ui.es.cv.en}</a>
-		</p>
-	</Section>
+	<Hero />
+	<Stats />
+	<Marquee labels={marqueeLabels('es')} />
+	<About />
+	<Experience />
+	<Stack />
+	<Services />
+	<Ecosystem />
+	<Contact />
 </Base>

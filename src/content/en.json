@@ -1,6 +1,6 @@
 {
   "titular": "Java Backend Engineer | Spring Boot · Microservices · REST APIs · Oracle | Financial Sector",
-  "resumen": "Java backend engineer with 5+ years of experience building high-volume, critical systems for the financial sector in Colombia. I work with Java 21, Spring Boot 3, Spring WebFlux, microservices, and Oracle/PL-SQL, using Hexagonal Architecture, SOLID, and tests. I handle the full cycle: requirements, design, development, testing, and deployment. I also have experience with security (OTP/2FA), Python automation, and Angular.",
+  "resumen": "Java backend engineer with 5+ years building critical, high-volume systems for the financial sector in Colombia. I work with Java 21, Spring Boot 3, WebFlux, microservices, and Oracle/PL-SQL, using hexagonal architecture, SOLID, and tests. I built the system that generates and sends encrypted monthly statements. I also delivered REST services, OTP/2FA for three transactional portals, and e-invoicing for DIAN. I handle the full cycle: requirements, design, code, tests, and deployment.",
   "experiencia": [
     {
       "empresa": "ITC Soluciones Tecnológicas",
@@ -28,25 +28,194 @@
     }
   ],
   "habilidades": [
-    { "grupo": "Languages", "items": ["Java", "Python", "PL/SQL", "JavaScript", "HTML/CSS"] },
-    { "grupo": "Backend", "items": ["Spring Framework", "Spring Boot", "Spring WebFlux (reactive)", "Hibernate/JPA", "REST APIs", "SOAP services", "Oracle SOA", "Jasper Reports"] },
-    { "grupo": "Messaging", "items": ["Kafka"] },
-    { "grupo": "Build and testing", "items": ["Maven", "Gradle", "JUnit", "Mockito"] },
-    { "grupo": "Architecture and practices", "items": ["Microservices", "Event-driven architecture", "Hexagonal/Clean Architecture", "SOLID", "TDD", "DDD", "Clean Code"] },
-    { "grupo": "Frontend", "items": ["Angular"] },
-    { "grupo": "Databases", "items": ["Oracle Database", "PostgreSQL", "PL/SQL"] },
-    { "grupo": "Cloud and DevOps", "items": ["Oracle Cloud Infrastructure (OCI)", "WebLogic Server", "Docker", "Git", "CI/CD"] },
-    { "grupo": "Tools and servers", "items": ["Tomcat", "JBoss", "Jira", "Confluence"] },
-    { "grupo": "Security", "items": ["OTP and two-factor authentication (2FA)"] },
-    { "grupo": "Data and automation", "items": ["Python (web scraping)", "Power BI", "Advanced Excel (macros)"] }
+    {
+      "grupo": "Languages",
+      "items": [
+        "Java",
+        "Python",
+        "PL/SQL",
+        "JavaScript",
+        "HTML/CSS"
+      ]
+    },
+    {
+      "grupo": "Backend",
+      "items": [
+        "Spring Framework",
+        "Spring Boot",
+        "Spring WebFlux (reactive)",
+        "Hibernate/JPA",
+        "REST APIs",
+        "SOAP services",
+        "Oracle SOA",
+        "Jasper Reports"
+      ]
+    },
+    {
+      "grupo": "Messaging",
+      "items": [
+        "Kafka"
+      ]
+    },
+    {
+      "grupo": "Build and testing",
+      "items": [
+        "Maven",
+        "Gradle",
+        "JUnit",
+        "Mockito"
+      ]
+    },
+    {
+      "grupo": "Architecture and practices",
+      "items": [
+        "Microservices",
+        "Event-driven architecture",
+        "Hexagonal/Clean Architecture",
+        "SOLID",
+        "TDD",
+        "DDD",
+        "Clean Code"
+      ]
+    },
+    {
+      "grupo": "Frontend",
+      "items": [
+        "Angular"
+      ]
+    },
+    {
+      "grupo": "Databases",
+      "items": [
+        "Oracle Database",
+        "PostgreSQL",
+        "PL/SQL"
+      ]
+    },
+    {
+      "grupo": "Cloud and DevOps",
+      "items": [
+        "Oracle Cloud Infrastructure (OCI)",
+        "WebLogic Server",
+        "Docker",
+        "Git",
+        "CI/CD"
+      ]
+    },
+    {
+      "grupo": "Tools and servers",
+      "items": [
+        "Tomcat",
+        "JBoss",
+        "Jira",
+        "Confluence"
+      ]
+    },
+    {
+      "grupo": "Security",
+      "items": [
+        "OTP and two-factor authentication (2FA)"
+      ]
+    },
+    {
+      "grupo": "Data and automation",
+      "items": [
+        "Python (web scraping)",
+        "Power BI",
+        "Advanced Excel (macros)"
+      ]
+    }
   ],
+  "hero": {
+    "eyebrow": "Open to new roles and projects · Medellín, CO",
+    "bajada": "Java backend engineer building critical, high-volume systems for Colombia's financial sector, with Spring Boot, microservices, and Oracle.",
+    "boton_contacto": "Get in touch",
+    "destacado": "critical, high-volume systems"
+  },
+  "estadisticas": [
+    {
+      "valor": "5+",
+      "etiqueta": "years building critical financial systems"
+    },
+    {
+      "valor": "4",
+      "etiqueta": "financial institutions served, including BBVA and Banco de Bogotá"
+    },
+    {
+      "valor": "3",
+      "etiqueta": "transactional portals with OTP/2FA"
+    },
+    {
+      "valor": "3",
+      "etiqueta": "clients with e-invoicing for DIAN"
+    }
+  ],
+  "sobre_mi": {
+    "titular": "I design and build the backend systems banks rely on every day: reliable, secure, and built to last.",
+    "chips": [
+      "Hexagonal architecture",
+      "SOLID",
+      "TDD",
+      "DDD",
+      "Event-driven architecture",
+      "Clean Code"
+    ]
+  },
+  "experiencia_seccion": {
+    "titulo": "Where I've been shipping"
+  },
+  "stack": {
+    "titulo": "Tools I use in production",
+    "descripcion": "From reactive APIs to the database, the whole backend path."
+  },
   "servicios": [
-    "Backend APIs and services with Java and Spring Boot.",
-    "System integration and modernization with Oracle, PL/SQL, and SOAP/REST services.",
-    "Process and report automation (Python, Power BI)."
+    {
+      "titulo": "Backend APIs and services",
+      "descripcion": "Backend APIs and services with Java and Spring Boot. Built for high volume, tested, and ready to deploy."
+    },
+    {
+      "titulo": "Integration and modernization",
+      "descripcion": "System integration and modernization with Oracle, PL/SQL, and SOAP/REST services."
+    },
+    {
+      "titulo": "Process and report automation",
+      "descripcion": "Process and report automation with Python and Power BI. Less manual work, better data."
+    }
   ],
+  "servicios_seccion": {
+    "titulo": "How I can help your team"
+  },
+  "ecosistema": {
+    "titulo": "Beyond the CV",
+    "descripcion": "jotaeme.dev is the hub. Products, free tools, and experiments will each have their own subdomain.",
+    "tarjetas": [
+      {
+        "id": "apps",
+        "estado": "Coming soon",
+        "titulo": "Products",
+        "descripcion": "Apps and projects to buy or license."
+      },
+      {
+        "id": "free",
+        "estado": "Coming soon",
+        "titulo": "Open apps",
+        "descripcion": "Free, non-profit web apps anyone can use."
+      },
+      {
+        "id": "lab",
+        "estado": "Private",
+        "titulo": "Lab",
+        "descripcion": "Self-hosted automation with n8n and personal experiments."
+      }
+    ],
+    "titular": "Everything I build lives here"
+  },
+  "contacto": {
+    "titular": "Let's build something reliable together."
+  },
+  "pie": "© 2026 Juan Manuel Vélez Parra · Medellín, Colombia",
   "meta": {
     "titulo": "Juan Manuel Vélez Parra — Java Backend Engineer",
-    "descripcion": "Juan Manuel Vélez Parra, Java backend engineer in Medellín, Colombia. Spring Boot, microservices, REST APIs, and Oracle for the financial sector."
+    "descripcion": "Juan Manuel Vélez Parra, Java backend engineer in Medellín, Colombia. Critical, high-volume systems with Spring Boot and Oracle for finance."
   }
 }

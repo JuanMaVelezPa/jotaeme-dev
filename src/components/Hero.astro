@@ -1,0 +1,181 @@
+---
+import { ui } from '../i18n';
+import site from '../content/site.json';
+import es from '../content/es.json';
+import en from '../content/en.json';
+import { globeLabels } from '../lib/skills';
+import Globe from './Globe.astro';
+
+const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
+const t = ui[locale];
+const { hero } = locale === 'es' ? es : en;
+const [first, ...rest] = site.nombre.split(' ');
+const firstName = `${first} ${rest[0]}`;
+const lastName = rest.slice(1).join(' ');
+const at = hero.bajada.indexOf(hero.destacado);
+const before = hero.bajada.slice(0, at);
+const after = hero.bajada.slice(at + hero.destacado.length);
+---
+
+<section class="hero-section" id="top" aria-label={t.intro}>
+	<div class="copy">
+		<p class="eyebrow intro d1"><span class="pulse" aria-hidden="true"></span>{hero.eyebrow}</p>
+		<h1 class="intro d2">{firstName}<br /><span class="last">{lastName}</span></h1>
+		<p class="lead intro d3">{before}<span class="hl">{hero.destacado}</span>{after}</p>
+		<div class="actions intro d4">
+			<a class="button button-primary cta" href={`mailto:${site.email}`}>
+				{hero.boton_contacto}
+				<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+			</a>
+			<a class="button cta" href={`/${site.cv[locale]}`} download>
+				<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="m7 10 5 5 5-5"></path><path d="M5 20h14"></path></svg>
+				{t.cvShort}
+			</a>
+		</div>
+		<p class="links intro d5">
+			<a href={site.enlaces.linkedin}>LinkedIn ↗</a>
+			<a href={site.enlaces.github}>GitHub ↗</a>
+		</p>
+	</div>
+	<div class="visual">
+		<Globe labels={globeLabels(locale)} />
+	</div>
+</section>
+
+<style>
+	.hero-section {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 3rem;
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 1rem 1rem 3.5rem;
+	}
+
+	.copy {
+		display: flex;
+		flex: 1 1 560px;
+		flex-direction: column;
+		gap: 1.75rem;
+		min-width: 0;
+	}
+
+	.visual {
+		flex: 1 1 400px;
+		min-width: 0;
+	}
+
+	.copy p {
+		margin: 0;
+	}
+
+	.eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		align-self: flex-start;
+		padding: 8px 14px;
+		border: 1px solid var(--jm-border);
+		border-radius: var(--jm-radius-pill);
+		background: var(--jm-surface);
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+		line-height: 1.4;
+		color: var(--jm-muted);
+	}
+
+	.pulse {
+		flex: none;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--jm-free);
+	}
+
+	h1 {
+		margin: 0;
+		font-size: var(--jm-text-display);
+		font-weight: 600;
+		line-height: 0.95;
+		letter-spacing: -0.045em;
+	}
+
+	.last {
+		color: var(--jm-dim);
+	}
+
+	.lead {
+		max-width: 560px;
+		font-size: clamp(18px, 1.6vw, 22px);
+		line-height: 1.5;
+		color: var(--jm-muted);
+	}
+
+	.hl {
+		color: var(--jm-bone);
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		padding-top: 8px;
+	}
+
+	.cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		min-height: 52px;
+		padding: 0 26px;
+		font-size: 16px;
+	}
+
+	.links {
+		display: flex;
+		gap: 20px;
+		padding-top: 8px;
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+	}
+
+	.links a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		color: var(--jm-dim);
+		text-decoration: none;
+	}
+
+	.links a:hover {
+		color: var(--jm-bone);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.pulse {
+			animation: pulse 2.4s ease-out infinite;
+		}
+
+		:global(.js) .intro {
+			opacity: 0;
+			animation: jm-enter var(--jm-dur-enter) var(--jm-ease) both;
+		}
+
+		:global(.loader-on) .intro,
+		:global(.loader-on) .pulse {
+			animation-play-state: paused;
+		}
+
+		.d1 { animation-delay: 0.05s; }
+		.d2 { animation-delay: 0.18s; }
+		.d3 { animation-delay: 0.3s; }
+		.d4 { animation-delay: 0.42s; }
+		.d5 { animation-delay: 0.55s; }
+	}
+
+	@keyframes pulse {
+		from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--jm-free), transparent 45%); }
+		to { box-shadow: 0 0 0 10px transparent; }
+	}
+</style>

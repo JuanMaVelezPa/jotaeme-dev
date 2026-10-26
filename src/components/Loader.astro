@@ -1,0 +1,38 @@
+---
+import { ui } from '../i18n';
+import '../styles/loader.css';
+
+const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
+const t = ui[locale].loader;
+---
+
+<div class="jm-loader" id="jm-loader" role="status" aria-live="polite" aria-label={t.label}>
+	<span class="jm-loader__mark" aria-hidden="true"><span class="j">j</span><span class="m">m</span><span class="jm-cursor"></span></span>
+	<div class="jm-loader__bar" aria-hidden="true"><span></span></div>
+	<p class="jm-loader__text"><b>~</b> {t.text}</p>
+</div>
+
+<script is:inline>
+	(function () {
+		var root = document.documentElement;
+		var el = document.getElementById('jm-loader');
+		if (!el || !root.classList.contains('loader-on')) return;
+		var start = Date.now();
+		var done = false;
+		function hide() {
+			if (done) return;
+			done = true;
+			root.classList.remove('loader-on');
+			el.classList.add('is-done');
+			setTimeout(function () {
+				el.remove();
+			}, 600);
+		}
+		function whenReady() {
+			setTimeout(hide, Math.max(0, 900 - (Date.now() - start)));
+		}
+		if (document.readyState === 'complete') whenReady();
+		else window.addEventListener('load', whenReady);
+		setTimeout(hide, 3000);
+	})();
+</script>

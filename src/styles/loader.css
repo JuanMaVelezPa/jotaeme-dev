@@ -1,0 +1,132 @@
+/* Adapted from jotaeme-brand/loader/loader.css. Hidden unless <html> has .js and .loader-on. */
+.jm-loader {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 36px;
+	background: var(--jm-ink);
+	transition:
+		opacity 0.5s ease,
+		visibility 0.5s ease;
+}
+
+.loader-on .jm-loader,
+.jm-loader.is-done {
+	display: flex;
+}
+
+.jm-loader.is-done {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.jm-loader__mark {
+	font-family: var(--jm-font-mono);
+	font-weight: 800;
+	font-size: clamp(64px, 10vw, 120px);
+	letter-spacing: -0.07em;
+	line-height: 1;
+	color: var(--jm-bone);
+	display: inline-flex;
+	align-items: center;
+}
+
+.jm-loader__mark .j {
+	animation: jm-t1 1.2s steps(1) both;
+}
+
+.jm-loader__mark .m {
+	animation: jm-t2 1.2s steps(1) both;
+}
+
+.jm-cursor {
+	display: inline-block;
+	width: 0.07em;
+	height: 0.82em;
+	margin-left: 0.06em;
+	margin-top: 0.08em;
+	background: var(--jm-accent);
+	animation: jm-blink var(--jm-dur-blink) steps(1) infinite;
+}
+
+.jm-loader__bar {
+	width: 200px;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--jm-border);
+	overflow: hidden;
+}
+
+.jm-loader__bar > span {
+	display: block;
+	height: 100%;
+	background: var(--jm-accent);
+	transform-origin: left center;
+	animation: jm-bar 2.4s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+}
+
+.jm-loader__text {
+	margin: 0;
+	font-family: var(--jm-font-mono);
+	font-size: var(--jm-text-label);
+	color: var(--jm-dim);
+}
+
+.jm-loader__text b {
+	color: var(--jm-accent);
+	font-weight: 400;
+}
+
+@keyframes jm-blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+@keyframes jm-t1 {
+	0% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 1;
+	}
+}
+
+@keyframes jm-t2 {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+@keyframes jm-bar {
+	0% {
+		transform: scaleX(0);
+	}
+	40% {
+		transform: scaleX(0.5);
+	}
+	80%,
+	100% {
+		transform: scaleX(1);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.jm-cursor,
+	.jm-loader__bar > span,
+	.jm-loader__mark .j,
+	.jm-loader__mark .m {
+		animation: none;
+	}
+}
+
+.jm-loader.is-done .jm-cursor {
+	animation-play-state: paused;
+}

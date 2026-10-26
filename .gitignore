@@ -26,3 +26,6 @@ pnpm-debug.log*
 # editor and assistant settings (local only)
 .claude/
 .vscode/
+
+# WSL download markers
+*:Zone.Identifier

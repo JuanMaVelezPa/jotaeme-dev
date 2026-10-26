@@ -1,0 +1,221 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { ui } from '../i18n';
+import Logo from './Logo.astro';
+
+const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
+const other = locale === 'es' ? 'en' : 'es';
+const t = ui[locale];
+const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
+---
+
+<header class="nav">
+	<div class="nav-bar">
+		<Logo wordmark />
+		<nav id="nav-links" class="nav-links" aria-label={t.nav}>
+			<ul>
+				{links.map((link) => <li><a href={`#${link.id}`}>{link.label}</a></li>)}
+			</ul>
+		</nav>
+		<div class="nav-actions">
+			<a class="lang-link" href={getRelativeLocaleUrl(other)} hreflang={other} lang={other} aria-label={ui[other].language}>
+				<span class:list={{ current: locale === 'en' }}>EN</span> / <span class:list={{ current: locale === 'es' }}>ES</span>
+			</a>
+			<a class="button button-primary button-talk" href={`#${t.contact.id}`}>{t.talk}</a>
+			<button
+				type="button"
+				class="nav-toggle"
+				aria-expanded="false"
+				aria-controls="nav-links"
+				data-open={t.menu.open}
+				data-close={t.menu.close}
+				aria-label={t.menu.open}
+			>
+				<span aria-hidden="true">{t.menu.label}</span>
+			</button>
+		</div>
+	</div>
+</header>
+
+<script>
+	const header = document.querySelector<HTMLElement>('.nav');
+	const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+	const panel = document.getElementById('nav-links');
+
+	if (header && toggle && panel) {
+		const setOpen = (open: boolean) => {
+			header.classList.toggle('nav-open', open);
+			toggle.setAttribute('aria-expanded', String(open));
+			toggle.setAttribute('aria-label', (open ? toggle.dataset.close : toggle.dataset.open) ?? '');
+		};
+
+		toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+		panel.addEventListener('click', (event) => {
+			if ((event.target as HTMLElement).closest('a')) setOpen(false);
+		});
+		header.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+				setOpen(false);
+				toggle.focus();
+			}
+		});
+	}
+</script>
+
+<style>
+	.nav {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		background: color-mix(in srgb, var(--jm-ink), transparent 22%);
+		backdrop-filter: blur(14px);
+		border-bottom: 1px solid var(--jm-border);
+	}
+
+	.nav-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 1.125rem 1.5rem;
+		--logo-size: 30px;
+	}
+
+	.nav-links ul {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav-links li + li {
+		margin-top: 0;
+	}
+
+	.nav-links a,
+	.lang-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		text-decoration: none;
+		color: var(--jm-muted);
+		transition: color 0.2s;
+	}
+
+	.nav-links a {
+		font-size: 15px;
+	}
+
+	.nav-links a:hover,
+	.nav-links a:active,
+	.lang-link:hover {
+		color: var(--jm-accent);
+	}
+
+	.nav-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.lang-link {
+		padding: 0 0.4rem;
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+		white-space: nowrap;
+	}
+
+	.lang-link .current {
+		color: var(--jm-bone);
+	}
+
+	.button-talk {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 1.25rem;
+		font-size: 14px;
+		white-space: nowrap;
+	}
+
+	.nav-toggle {
+		display: none;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 0.9rem;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-pill);
+		background: transparent;
+		color: var(--jm-bone);
+		font-family: var(--jm-font-mono);
+		font-size: var(--jm-text-label);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+
+	@media (max-width: 820px) {
+		.nav-toggle {
+			display: inline-flex;
+		}
+
+		/* Without JavaScript the links stay visible as a wrapping row. */
+		:global(.js) .nav-links {
+			display: none;
+		}
+
+		:global(.js) .nav-open .nav-links {
+			display: block;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			padding: 0.5rem 1rem 1rem;
+			background: var(--jm-ink);
+			border-bottom: 1px solid var(--jm-border);
+		}
+
+		:global(.js) .nav-open .nav-links ul {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
+		}
+
+		:global(.js) .nav-open .nav-links a {
+			width: 100%;
+			border-bottom: 1px solid var(--jm-border);
+		}
+
+		:global(html:not(.js)) .nav-bar {
+			flex-wrap: wrap;
+		}
+
+		:global(html:not(.js)) .nav-links {
+			order: 3;
+			flex-basis: 100%;
+		}
+
+		:global(html:not(.js)) .nav-links ul {
+			flex-wrap: wrap;
+			gap: 0 1.25rem;
+		}
+
+		:global(html:not(.js)) .nav-toggle {
+			display: none;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.nav-bar {
+			gap: 0.5rem;
+		}
+
+		.nav-actions {
+			gap: 0.25rem;
+		}
+	}
+</style>
