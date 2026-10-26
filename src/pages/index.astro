@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import { ui } from '../i18n';
+import site from '../content/site.json';
+import en from '../content/en.json';
+---
+
+<Base title={en.meta.titulo} description={en.meta.descripcion}>
+	<header class="hero">
+		<h1>{site.nombre}</h1>
+		<p>{en.titular}</p>
+	</header>
+	<Section id={ui.en.about.id} heading={ui.en.about.label}>
+		<p>{en.resumen}</p>
+	</Section>
+	<Section id={ui.en.experience.id} heading={ui.en.experience.label}>
+		{en.experiencia.map((job) => (
+			<article>
+				<h3>{job.cargo} · {job.empresa}</h3>
+				<p class="period">{job.periodo}</p>
+				<ul>
+					{job.puntos.map((punto) => <li>{punto}</li>)}
+				</ul>
+			</article>
+		))}
+		<h3>{ui.en.skills}</h3>
+		<dl>
+			{en.habilidades.map((grupo) => (
+				<>
+					<dt>{grupo.grupo}</dt>
+					<dd>{grupo.items.join(', ')}</dd>
+				</>
+			))}
+		</dl>
+	</Section>
+	<Section id={ui.en.services.id} heading={ui.en.services.label}>
+		<ul>
+			{en.servicios.map((servicio) => <li>{servicio}</li>)}
+		</ul>
+	</Section>
+	<Section id={ui.en.contact.id} heading={ui.en.contact.label}>
+		<ul class="contact-list">
+			<li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+			<li><a href={site.enlaces.linkedin}>LinkedIn</a></li>
+			<li><a href={site.enlaces.github}>GitHub</a></li>
+		</ul>
+		<p class="cv-links">
+			<a href={`/${site.cv.en}`} download>{ui.en.cv.en}</a>
+			<a href={`/${site.cv.es}`} download>{ui.en.cv.es}</a>
+		</p>
+	</Section>
+</Base>

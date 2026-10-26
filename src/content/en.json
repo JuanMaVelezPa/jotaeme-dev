@@ -1,0 +1,52 @@
+{
+  "titular": "Java Backend Engineer | Spring Boot · Microservices · REST APIs · Oracle | Financial Sector",
+  "resumen": "Java backend engineer with 5+ years of experience building high-volume, critical systems for the financial sector in Colombia. I work with Java 21, Spring Boot 3, Spring WebFlux, microservices, and Oracle/PL-SQL, using Hexagonal Architecture, SOLID, and tests. I handle the full cycle: requirements, design, development, testing, and deployment. I also have experience with security (OTP/2FA), Python automation, and Angular.",
+  "experiencia": [
+    {
+      "empresa": "ITC Soluciones Tecnológicas",
+      "cargo": "Software Engineer, Full Stack with a Backend focus",
+      "periodo": "Mar 2021 – Present",
+      "puntos": [
+        "Technology partner of Colombian financial institutions. Clients: BBVA, Credicorp, Banco de Bogotá, and Banco Popular.",
+        "Professional role (Mar 2022 – Present): automated system that builds and sends encrypted monthly statements (Java/Spring, SOA with SOAP, and PL/SQL on Oracle).",
+        "REST services and reports for the Fiduinversión portal (Angular/Spring).",
+        "New features and OTP/2FA in three transactional portals.",
+        "Electronic invoicing for DIAN (the Colombian tax authority) for three clients.",
+        "Budget and invoicing modules in Oracle Forms 12c.",
+        "Junior role (Mar 2021 – Mar 2022): SQL and PL/SQL tuning, reports in Oracle Forms and Reports, PL/SQL facade procedures for new Java web applications."
+      ]
+    },
+    {
+      "empresa": "Línea Directa S.A.",
+      "cargo": "Demand Planning and Analytics Professional",
+      "periodo": "Aug 2019 – Mar 2021",
+      "puntos": [
+        "Python web scraping and Power BI dashboards to track e-commerce.",
+        "Demand and supply planning.",
+        "Price elasticity analysis with Excel macros."
+      ]
+    }
+  ],
+  "habilidades": [
+    { "grupo": "Languages", "items": ["Java", "Python", "PL/SQL", "JavaScript", "HTML/CSS"] },
+    { "grupo": "Backend", "items": ["Spring Framework", "Spring Boot", "Spring WebFlux (reactive)", "Hibernate/JPA", "REST APIs", "SOAP services", "Oracle SOA", "Jasper Reports"] },
+    { "grupo": "Messaging", "items": ["Kafka"] },
+    { "grupo": "Build and testing", "items": ["Maven", "Gradle", "JUnit", "Mockito"] },
+    { "grupo": "Architecture and practices", "items": ["Microservices", "Event-driven architecture", "Hexagonal/Clean Architecture", "SOLID", "TDD", "DDD", "Clean Code"] },
+    { "grupo": "Frontend", "items": ["Angular"] },
+    { "grupo": "Databases", "items": ["Oracle Database", "PostgreSQL", "PL/SQL"] },
+    { "grupo": "Cloud and DevOps", "items": ["Oracle Cloud Infrastructure (OCI)", "WebLogic Server", "Docker", "Git", "CI/CD"] },
+    { "grupo": "Tools and servers", "items": ["Tomcat", "JBoss", "Jira", "Confluence"] },
+    { "grupo": "Security", "items": ["OTP and two-factor authentication (2FA)"] },
+    { "grupo": "Data and automation", "items": ["Python (web scraping)", "Power BI", "Advanced Excel (macros)"] }
+  ],
+  "servicios": [
+    "Backend APIs and services with Java and Spring Boot.",
+    "System integration and modernization with Oracle, PL/SQL, and SOAP/REST services.",
+    "Process and report automation (Python, Power BI)."
+  ],
+  "meta": {
+    "titulo": "Juan Manuel Vélez Parra — Java Backend Engineer",
+    "descripcion": "Juan Manuel Vélez Parra, Java backend engineer in Medellín, Colombia. Spring Boot, microservices, REST APIs, and Oracle for the financial sector."
+  }
+}

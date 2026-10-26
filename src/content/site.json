@@ -1,0 +1,24 @@
+{
+  "nombre": "Juan Manuel Vélez Parra",
+  "ubicacion": "Medellín, Colombia",
+  "sitio_web": "https://jotaeme.dev",
+  "email": "juanmavelezpa@gmail.com",
+  "enlaces": {
+    "github": "https://github.com/JuanMaVelezPa",
+    "linkedin": "https://www.linkedin.com/in/juanmavelezpa",
+    "instagram": "https://www.instagram.com/juanmavelezpa",
+    "facebook": "https://www.facebook.com/juanma.velez"
+  },
+  "habilidades_principales": [
+    "Java 21",
+    "Spring Boot 3",
+    "Spring WebFlux",
+    "Microservicios",
+    "Oracle/PL-SQL",
+    "Angular"
+  ],
+  "cv": {
+    "es": "cv/JuanManuel_Velez_CV_ES.pdf",
+    "en": "cv/JuanManuel_Velez_CV_EN.pdf"
+  }
+}

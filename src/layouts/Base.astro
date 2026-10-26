@@ -1,0 +1,69 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import site from '../content/site.json';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { ui } from '../i18n';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const locale = Astro.currentLocale ?? 'en';
+const other = locale === 'es' ? 'en' : 'es';
+const skip = ui[locale === 'es' ? 'es' : 'en'].skip;
+const ogLocales = { en: 'en_US', es: 'es_CO' } as const;
+
+const urlFor = (lang: string) => new URL(getRelativeLocaleUrl(lang), Astro.site).href;
+const canonical = urlFor(locale);
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: site.nombre,
+	url: site.sitio_web,
+	description,
+	address: {
+		'@type': 'PostalAddress',
+		addressLocality: 'Medellín',
+		addressCountry: 'CO',
+	},
+	knowsAbout: site.habilidades_principales,
+	sameAs: [site.enlaces.github, site.enlaces.linkedin],
+};
+---
+
+<html lang={locale}>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" hreflang="en" href={urlFor('en')} />
+		<link rel="alternate" hreflang="es" href={urlFor('es')} />
+		<link rel="alternate" hreflang="x-default" href={urlFor('en')} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={site.nombre} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:locale" content={ogLocales[locale as keyof typeof ogLocales]} />
+		<meta property="og:locale:alternate" content={ogLocales[other]} />
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">{skip}</a>
+		<Header />
+		<main id="main" class="container">
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

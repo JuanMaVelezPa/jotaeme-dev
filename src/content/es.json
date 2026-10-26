@@ -1,0 +1,52 @@
+{
+  "titular": "Desarrollador Backend Java | Spring Boot · Microservicios · APIs REST · Oracle | Sector Financiero",
+  "resumen": "Desarrollador Backend Java con más de 5 años de experiencia en sistemas críticos y de alto volumen para el sector financiero colombiano. Construyo servicios con Java 21, Spring Boot 3, Spring WebFlux, microservicios y Oracle/PL-SQL, con arquitectura hexagonal, SOLID y pruebas. Acompaño el ciclo completo: requisitos con el cliente, diseño, desarrollo, pruebas y despliegue. También tengo experiencia en seguridad (OTP/2FA), automatización con Python e integración con Angular.",
+  "experiencia": [
+    {
+      "empresa": "ITC Soluciones Tecnológicas",
+      "cargo": "Ingeniero de Software, Full Stack con enfoque Backend",
+      "periodo": "Mar 2021 – presente",
+      "puntos": [
+        "Aliado tecnológico de instituciones financieras colombianas. Clientes: BBVA, Credicorp, Banco de Bogotá y Banco Popular.",
+        "Rol profesional (mar 2022 – presente): sistema automatizado de generación y entrega mensual de extractos cifrados (Java/Spring, SOA con SOAP y PL/SQL sobre Oracle).",
+        "Servicios REST y reportes para el portal Fiduinversión (Angular/Spring).",
+        "Nuevas funciones y OTP/2FA en tres portales transaccionales.",
+        "Facturación electrónica para DIAN con tres clientes.",
+        "Módulos de presupuesto y facturación en Oracle Forms 12c.",
+        "Rol junior (mar 2021 – mar 2022): optimización de SQL y PL/SQL, reportes en Oracle Forms y Reports, procedimientos facade PL/SQL para nuevas aplicaciones web en Java."
+      ]
+    },
+    {
+      "empresa": "Línea Directa S.A.",
+      "cargo": "Profesional de Planeación de Demanda y Analytics",
+      "periodo": "Ago 2019 – mar 2021",
+      "puntos": [
+        "Web scraping en Python y tableros en Power BI para el seguimiento del comercio electrónico.",
+        "Planeación de demanda y abastecimiento.",
+        "Análisis de elasticidad de precios con macros de Excel."
+      ]
+    }
+  ],
+  "habilidades": [
+    { "grupo": "Lenguajes", "items": ["Java", "Python", "PL/SQL", "JavaScript", "HTML/CSS"] },
+    { "grupo": "Backend", "items": ["Spring Framework", "Spring Boot", "Spring WebFlux (reactivo)", "Hibernate/JPA", "APIs REST", "Servicios SOAP", "Oracle SOA", "Jasper Reports"] },
+    { "grupo": "Mensajería", "items": ["Kafka"] },
+    { "grupo": "Build y pruebas", "items": ["Maven", "Gradle", "JUnit", "Mockito"] },
+    { "grupo": "Arquitectura y prácticas", "items": ["Microservicios", "Arquitectura orientada a eventos", "Arquitectura hexagonal/limpia", "SOLID", "TDD", "DDD", "Clean Code"] },
+    { "grupo": "Frontend", "items": ["Angular"] },
+    { "grupo": "Bases de datos", "items": ["Oracle Database", "PostgreSQL", "PL/SQL"] },
+    { "grupo": "Nube y DevOps", "items": ["Oracle Cloud Infrastructure (OCI)", "WebLogic Server", "Docker", "Git", "CI/CD"] },
+    { "grupo": "Herramientas y servidores", "items": ["Tomcat", "JBoss", "Jira", "Confluence"] },
+    { "grupo": "Seguridad", "items": ["OTP y autenticación en dos pasos (2FA)"] },
+    { "grupo": "Datos y automatización", "items": ["Python (web scraping)", "Power BI", "Excel avanzado (macros)"] }
+  ],
+  "servicios": [
+    "Desarrollo de APIs y servicios backend con Java y Spring Boot.",
+    "Integración y modernización de sistemas con Oracle, PL/SQL y servicios SOAP/REST.",
+    "Automatización de procesos y reportes (Python, Power BI)."
+  ],
+  "meta": {
+    "titulo": "Juan Manuel Vélez Parra — Desarrollador Backend Java",
+    "descripcion": "Juan Manuel Vélez Parra, desarrollador Backend Java en Medellín, Colombia. Spring Boot, microservicios, APIs REST y Oracle para el sector financiero."
+  }
+}
