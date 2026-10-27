@@ -1,4 +1,4 @@
-/* Adapted from jotaeme-brand/loader/loader.css. Hidden unless <html> has .js and .loader-on. */
+/* Adapted from design/brand/loader/loader.css. Hidden unless <html> has .js and .loader-on. */
 .jm-loader {
 	display: none;
 	position: fixed;

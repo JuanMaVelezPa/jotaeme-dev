@@ -1,7 +1,7 @@
 ---
-import { ui } from '../i18n';
-import site from '../content/site.json';
-import { content, getLocale } from '../lib/content';
+import { ui } from '../../lib/i18n';
+import site from '../../content/site.json';
+import { content, getLocale } from '../../lib/content';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];

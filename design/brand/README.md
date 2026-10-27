@@ -3,7 +3,7 @@
 Paquete de marca de **Juan Manuel Vélez Parra**. Todo lo necesario para el portafolio, los subdominios, LinkedIn y el correo.
 
 ```
-jotaeme-brand/
+design/brand/
 ├── logo/          Logo jm| en SVG (letras en trazos) + PNG @2x/@4x, y lockups horizontales
 ├── icons/         Íconos de app A2 (oscuro) y A6 (ámbar) en SVG + PNG 192/512/1024 + maskable
 ├── favicon/       Todo lo que va en la raíz de jotaeme.dev (favicon.ico, .svg, apple-touch, manifest)

@@ -1,10 +1,10 @@
 ---
-import { ui } from '../i18n';
-import site from '../content/site.json';
-import es from '../content/es.json';
-import en from '../content/en.json';
-import { globeLabels } from '../lib/skills';
-import Globe from './Globe.astro';
+import { ui } from '../../lib/i18n';
+import site from '../../content/site.json';
+import es from '../../content/es.json';
+import en from '../../content/en.json';
+import { globeLabels } from '../../lib/skills';
+import Globe from '../ui/Globe.astro';
 
 const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
 const t = ui[locale];

@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { ui } from '../i18n';
+import { ui } from '../../lib/i18n';
 
 const { wordmark = false } = Astro.props;
 const locale = Astro.currentLocale === 'es' ? 'es' : 'en';

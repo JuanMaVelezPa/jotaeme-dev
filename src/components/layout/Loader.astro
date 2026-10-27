@@ -1,6 +1,6 @@
 ---
-import { ui } from '../i18n';
-import '../styles/loader.css';
+import { ui } from '../../lib/i18n';
+import '../../styles/loader.css';
 
 const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
 const t = ui[locale].loader;
