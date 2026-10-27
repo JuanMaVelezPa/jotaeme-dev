@@ -1,7 +1,7 @@
 ---
-import { ui } from '../i18n';
-import site from '../content/site.json';
-import { content, getLocale } from '../lib/content';
+import { ui } from '../../lib/i18n';
+import site from '../../content/site.json';
+import { content, getLocale } from '../../lib/content';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
@@ -59,6 +59,9 @@ const tail = words.slice(-2).join(' ');
 
 	.mail {
 		align-self: flex-start;
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
 		padding-bottom: 6px;
 		border-bottom: 1px solid var(--jm-border-strong);
 		font-size: clamp(20px, 2.4vw, 32px);

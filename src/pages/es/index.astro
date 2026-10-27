@@ -1,26 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Hero from '../../components/Hero.astro';
-import Stats from '../../components/Stats.astro';
-import Marquee from '../../components/Marquee.astro';
-import { marqueeLabels } from '../../lib/skills';
-import About from '../../components/About.astro';
-import Experience from '../../components/Experience.astro';
-import Stack from '../../components/Stack.astro';
-import Services from '../../components/Services.astro';
-import Ecosystem from '../../components/Ecosystem.astro';
-import Contact from '../../components/Contact.astro';
+import Home from '../../components/Home.astro';
 import es from '../../content/es.json';
 ---
 
 <Base title={es.meta.titulo} description={es.meta.descripcion}>
-	<Hero />
-	<Stats />
-	<Marquee labels={marqueeLabels('es')} />
-	<About />
-	<Experience />
-	<Stack />
-	<Services />
-	<Ecosystem />
-	<Contact />
+	<Home />
 </Base>

@@ -1,0 +1,25 @@
+---
+import { getLocale } from '../lib/content';
+import { marqueeLabels } from '../lib/skills';
+import Hero from './sections/Hero.astro';
+import Stats from './sections/Stats.astro';
+import Marquee from './sections/Marquee.astro';
+import About from './sections/About.astro';
+import Experience from './sections/Experience.astro';
+import Stack from './sections/Stack.astro';
+import Services from './sections/Services.astro';
+import Ecosystem from './sections/Ecosystem.astro';
+import Contact from './sections/Contact.astro';
+
+const lang = getLocale(Astro.currentLocale);
+---
+
+<Hero />
+<Stats />
+<Marquee labels={marqueeLabels(lang)} />
+<About />
+<Experience />
+<Stack />
+<Services />
+<Ecosystem />
+<Contact />

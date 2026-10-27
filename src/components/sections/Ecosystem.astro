@@ -1,6 +1,6 @@
 ---
-import { ui } from '../i18n';
-import { content, getLocale } from '../lib/content';
+import { ui } from '../../lib/i18n';
+import { content, getLocale } from '../../lib/content';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
@@ -137,6 +137,23 @@ const data = content[locale].ecosistema;
 		height: 0.82em;
 		margin: 0.08em 0.08em 0 0.06em;
 		background: var(--sub);
+		animation: jm-blink var(--jm-dur-blink) steps(1) infinite;
+	}
+
+	@keyframes jm-blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	:global(.loader-on) .cursor {
+		animation-play-state: paused;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cursor {
+			animation: none;
+		}
 	}
 
 	.status {

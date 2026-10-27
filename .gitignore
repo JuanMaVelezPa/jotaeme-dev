@@ -27,5 +27,8 @@ pnpm-debug.log*
 .claude/
 .vscode/
 
+# Playwright MCP output (local only)
+.playwright-mcp/
+
 # WSL download markers
 *:Zone.Identifier

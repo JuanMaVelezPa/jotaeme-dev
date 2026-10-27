@@ -1,6 +1,6 @@
 ---
-import { ui } from '../i18n';
-import { content, getLocale } from '../lib/content';
+import { ui } from '../../lib/i18n';
+import { content, getLocale } from '../../lib/content';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
@@ -74,6 +74,7 @@ const network = [
 		display: inline-flex;
 		align-items: center;
 		gap: 8px;
+		min-width: 44px;
 		min-height: 44px;
 		margin: 0;
 	}
