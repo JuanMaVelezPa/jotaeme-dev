@@ -59,6 +59,10 @@ const jsonLd = {
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="theme-color" content="#0A0B0D" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="jotaeme" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 		<link rel="preload" href="/fonts/InterTight-Variable.woff2" as="font" type="font/woff2" crossorigin />
 		<link rel="preload" href="/fonts/JetBrainsMono-ExtraBold.woff2" as="font" type="font/woff2" crossorigin />
 		<meta name="generator" content={Astro.generator} />
@@ -89,5 +93,16 @@ const jsonLd = {
 			<slot />
 		</main>
 		<Footer />
+		{
+			import.meta.env.PROD && (
+				<script is:inline>
+					if ('serviceWorker' in navigator) {
+						window.addEventListener('load', function () {
+							navigator.serviceWorker.register('/sw.js').catch(function () {});
+						});
+					}
+				</script>
+			)
+		}
 	</body>
 </html>

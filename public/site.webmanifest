@@ -1,21 +1,38 @@
 {
-  "name": "Juan Manuel V\u00e9lez Parra \u2014 jotaeme.dev",
+  "id": "/",
+  "name": "Juan Manuel Vélez Parra — jotaeme.dev",
   "short_name": "jotaeme",
+  "description": "Juan Manuel Vélez Parra, Java backend engineer in Medellín, Colombia. Critical, high-volume systems with Spring Boot and Oracle for finance.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0A0B0D",
+  "background_color": "#0A0B0D",
   "icons": [
     {
       "src": "/android-chrome-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/android-chrome-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ],
-  "theme_color": "#0A0B0D",
-  "background_color": "#0A0B0D",
-  "display": "standalone"
+  ]
 }
