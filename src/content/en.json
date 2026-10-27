@@ -159,6 +159,12 @@
       "DDD",
       "Event-driven architecture",
       "Clean Code"
+    ],
+    "metodo_titulo": "How I work",
+    "metodo_puntos": [
+      "Spec first (SDD): I define what to build and how to check it.",
+      "Tests and review for every change.",
+      "Tools: Claude Code and Cursor."
     ]
   },
   "experiencia_seccion": {
