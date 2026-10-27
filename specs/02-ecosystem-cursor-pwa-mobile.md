@@ -1,6 +1,6 @@
 # SPEC 02 — Ecosystem cursor blink, installable PWA, and mobile review
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01 (Implemented; the file paths below assume its structure)
 > **Date:** 2026-10-27
 > **Objective:** Make the `jm|` cursors in the Ecosystem section blink like the header logo, make `jotaeme.dev` an installable PWA with basic offline support, and fix any layout problem found reviewing the site on phone viewports with Playwright.
