@@ -159,6 +159,12 @@
       "DDD",
       "Arquitectura orientada a eventos",
       "Clean Code"
+    ],
+    "metodo_titulo": "Cómo trabajo",
+    "metodo_puntos": [
+      "Spec primero (SDD): defino qué se construye y cómo se verifica.",
+      "Pruebas y revisión de cada cambio.",
+      "Herramientas: Claude Code y Cursor."
     ]
   },
   "experiencia_seccion": {

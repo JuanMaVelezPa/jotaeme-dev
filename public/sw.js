@@ -1,5 +1,5 @@
 // Bump the suffix to invalidate old caches on a content release.
-const CACHE = 'jm-shell-v1';
+const CACHE = 'jm-shell-v2';
 
 const PRECACHE = [
 	'/',
@@ -14,8 +14,8 @@ const PRECACHE = [
 	'/favicon.ico',
 	'/favicon.svg',
 	'/site.webmanifest',
-	'/cv/JuanManuel_Velez_CV_EN.pdf',
-	'/cv/JuanManuel_Velez_CV_ES.pdf',
+	'/cv/Juan_Manuel_Velez_Java_Backend_Engineer_CV_EN.pdf',
+	'/cv/Juan_Manuel_Velez_Desarrollador_Backend_Java_CV_ES.pdf',
 ];
 
 // Cached when reachable, but a failure here must not abort the install.
