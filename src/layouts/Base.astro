@@ -5,6 +5,7 @@ import Nav from '../components/layout/Nav.astro';
 import Footer from '../components/layout/Footer.astro';
 import Loader from '../components/layout/Loader.astro';
 import { ui } from '../lib/i18n';
+import { content, getLocale } from '../lib/content';
 import '../styles/tokens.css';
 import '../styles/fonts.css';
 import '../styles/global.css';
@@ -17,7 +18,8 @@ interface Props {
 const { title, description } = Astro.props;
 const locale = Astro.currentLocale ?? 'en';
 const other = locale === 'es' ? 'en' : 'es';
-const skip = ui[locale === 'es' ? 'es' : 'en'].skip;
+const labels = ui[locale === 'es' ? 'es' : 'en'];
+const skip = labels.skip;
 const ogLocales = { en: 'en_US', es: 'es_CO' } as const;
 
 const urlFor = (lang: string) => new URL(getRelativeLocaleUrl(lang), Astro.site).href;
@@ -27,9 +29,13 @@ const ogImage = new URL('/og.png', Astro.site).href;
 const jsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'Person',
+	'@id': `${site.sitio_web}/#person`,
 	name: site.nombre,
 	url: site.sitio_web,
 	description,
+	jobTitle: content[getLocale(locale)].titular,
+	knowsLanguage: ['es', 'en'],
+	mainEntityOfPage: canonical,
 	address: {
 		'@type': 'PostalAddress',
 		addressLocality: 'Medellín',
@@ -58,7 +64,7 @@ const jsonLd = {
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="theme-color" content="#0A0B0D" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-title" content="jotaeme" />
@@ -68,6 +74,7 @@ const jsonLd = {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
 		<link rel="canonical" href={canonical} />
 		<link rel="alternate" hreflang="en" href={urlFor('en')} />
 		<link rel="alternate" hreflang="es" href={urlFor('es')} />
@@ -80,7 +87,12 @@ const jsonLd = {
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={labels.ogAlt} />
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image:alt" content={labels.ogAlt} />
 		<meta property="og:locale" content={ogLocales[locale as keyof typeof ogLocales]} />
 		<meta property="og:locale:alternate" content={ogLocales[other]} />
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
