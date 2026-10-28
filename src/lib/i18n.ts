@@ -24,6 +24,7 @@ export const ui = {
 		loader: { label: 'Loading jotaeme.dev', text: 'booting jotaeme.dev…' },
 		skip: 'Skip to content',
 		cv: { en: 'Download CV (English)', es: 'Download CV (Spanish)' },
+		ogAlt: 'jotaeme.dev, personal site of Juan Manuel Vélez Parra, Java Backend Engineer',
 	},
 	es: {
 		about: { id: 'sobre-mi', label: 'Sobre mí' },
@@ -49,5 +50,6 @@ export const ui = {
 		loader: { label: 'Cargando jotaeme.dev', text: 'iniciando jotaeme.dev…' },
 		skip: 'Saltar al contenido',
 		cv: { en: 'Descargar CV (inglés)', es: 'Descargar CV (español)' },
+		ogAlt: 'jotaeme.dev, sitio personal de Juan Manuel Vélez Parra, Ingeniero Backend Java',
 	},
 } as const;
