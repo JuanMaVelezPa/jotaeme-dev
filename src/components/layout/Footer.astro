@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui } from '../../lib/i18n';
 import { content, getLocale } from '../../lib/content';
 
@@ -8,7 +9,7 @@ const network = [
 	{ name: 'jotaeme.dev', color: 'var(--jm-bone)' },
 	{ name: 'apps', color: 'var(--jm-apps)' },
 	{ name: 'free', color: 'var(--jm-free)' },
-	{ name: 'lab', color: 'var(--jm-lab)' },
+	{ name: 'lab', color: 'var(--jm-lab)', href: getRelativeLocaleUrl(locale, 'lab/') },
 ];
 ---
 
@@ -21,7 +22,13 @@ const network = [
 					network.map((item) => (
 						<li style={`--bar: ${item.color}`}>
 							<span class="bar" aria-hidden="true" />
-							{item.name}
+							{item.href ? (
+								<a href={item.href} aria-current={Astro.url.pathname === item.href ? 'page' : undefined}>
+									{item.name}
+								</a>
+							) : (
+								item.name
+							)}
 						</li>
 					))
 				}
@@ -91,6 +98,10 @@ const network = [
 	}
 
 	a:hover {
+		color: var(--jm-bone);
+	}
+
+	a[aria-current='page'] {
 		color: var(--jm-bone);
 	}
 </style>

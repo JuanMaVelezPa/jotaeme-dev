@@ -3,9 +3,16 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui } from '../../lib/i18n';
 import Logo from './Logo.astro';
 
+interface Props {
+	path?: string;
+}
+
+const { path = '' } = Astro.props;
 const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
 const other = locale === 'es' ? 'en' : 'es';
 const t = ui[locale];
+// Off the home page the section anchors point back to the home of the same language.
+const home = path === '' ? '' : getRelativeLocaleUrl(locale);
 const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 ---
 
@@ -14,14 +21,14 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 		<Logo wordmark />
 		<nav id="nav-links" class="nav-links" aria-label={t.nav}>
 			<ul>
-				{links.map((link) => <li><a href={`#${link.id}`}>{link.label}</a></li>)}
+				{links.map((link) => <li><a href={`${home}#${link.id}`}>{link.label}</a></li>)}
 			</ul>
 		</nav>
 		<div class="nav-actions">
-			<a class="lang-link" href={getRelativeLocaleUrl(other)} hreflang={other} lang={other} aria-label={ui[other].language}>
+			<a class="lang-link" href={getRelativeLocaleUrl(other, path)} hreflang={other} lang={other} aria-label={ui[other].language}>
 				<span class:list={{ current: locale === 'en' }}>EN</span> / <span class:list={{ current: locale === 'es' }}>ES</span>
 			</a>
-			<a class="button button-primary button-talk" href={`#${t.contact.id}`}>{t.talk}</a>
+			<a class="button button-primary button-talk" href={`${home}#${t.contact.id}`}>{t.talk}</a>
 			<button
 				type="button"
 				class="nav-toggle"
@@ -100,6 +107,8 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 	.lang-link {
 		display: inline-flex;
 		align-items: center;
+		justify-content: center;
+		min-width: 44px;
 		min-height: 44px;
 		text-decoration: none;
 		color: var(--jm-muted);
@@ -108,6 +117,7 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 
 	.nav-links a {
 		font-size: 15px;
+		white-space: nowrap;
 	}
 
 	.nav-links a:hover,
@@ -186,6 +196,7 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 		}
 
 		:global(.js) .nav-open .nav-links a {
+			justify-content: flex-start;
 			width: 100%;
 			border-bottom: 1px solid var(--jm-border);
 		}

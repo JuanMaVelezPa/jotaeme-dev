@@ -1,9 +1,11 @@
 // Bump the suffix to invalidate old caches on a content release.
-const CACHE = 'jm-shell-v2';
+const CACHE = 'jm-shell-v3';
 
 const PRECACHE = [
 	'/',
 	'/es/',
+	'/lab/',
+	'/es/lab/',
 	'/fonts/InterTight-Variable.woff2',
 	'/fonts/JetBrainsMono-Regular.woff2',
 	'/fonts/JetBrainsMono-Medium.woff2',

@@ -1,10 +1,13 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui } from '../../lib/i18n';
 import { content, getLocale } from '../../lib/content';
 
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const data = content[locale].ecosistema;
+// Only the lab has a page so far; apps and free stay plain text until theirs exist.
+const pages: Record<string, string> = { lab: getRelativeLocaleUrl(locale, 'lab/') };
 ---
 
 <section class="ecosystem" id={t.ecosystem.id} aria-labelledby={`${t.ecosystem.id}-title`}>
@@ -25,10 +28,10 @@ const data = content[locale].ecosistema;
 					</div>
 					<span class="wordmark" aria-hidden="true">jm<span class="cursor" /><span class="sub">{card.id}</span></span>
 					<div class="text">
-						<h3>{card.titulo}</h3>
+						<h3>{pages[card.id] ? <a class="card-link" href={pages[card.id]}>{card.titulo}</a> : card.titulo}</h3>
 						<p>{card.descripcion}</p>
 					</div>
-					<p class="host">{card.id}.jotaeme.dev</p>
+					<p class="host">{pages[card.id] ? `jotaeme.dev/${card.id}` : `${card.id}.jotaeme.dev`}</p>
 				</li>
 			))
 		}
@@ -81,7 +84,7 @@ const data = content[locale].ecosistema;
 
 	.grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
 		gap: 1rem;
 		margin: 0;
 		padding: 0;
@@ -103,8 +106,42 @@ const data = content[locale].ecosistema;
 	.c-free { --sub: var(--jm-free); }
 	.c-lab { --sub: var(--jm-lab); }
 
+	.card {
+		position: relative;
+	}
+
 	.card:hover {
 		border-color: color-mix(in srgb, var(--sub), transparent 45%);
+	}
+
+	/* The title link covers the whole tile, so the tile is one tap target. */
+	.card-link {
+		display: inline-block;
+		/* Padding and a matching negative margin make the link box 44 px tall without moving the text. */
+		margin: -10px -4px;
+		padding: 10px 4px;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.card-link::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 22px;
+	}
+
+	.card-link:hover {
+		color: var(--jm-accent);
+	}
+
+	.card:has(.card-link:focus-visible) {
+		outline: 2px solid var(--jm-accent);
+		outline-offset: 2px;
+	}
+
+	.card-link:focus-visible {
+		outline: none;
 	}
 
 	.top {

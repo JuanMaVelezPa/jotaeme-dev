@@ -13,16 +13,17 @@ import '../styles/global.css';
 interface Props {
 	title: string;
 	description: string;
+	path?: string; // '' (home) or a page with trailing slash, e.g. 'lab/'
 }
 
-const { title, description } = Astro.props;
+const { title, description, path = '' } = Astro.props;
 const locale = Astro.currentLocale ?? 'en';
 const other = locale === 'es' ? 'en' : 'es';
 const labels = ui[locale === 'es' ? 'es' : 'en'];
 const skip = labels.skip;
 const ogLocales = { en: 'en_US', es: 'es_CO' } as const;
 
-const urlFor = (lang: string) => new URL(getRelativeLocaleUrl(lang), Astro.site).href;
+const urlFor = (lang: string) => new URL(getRelativeLocaleUrl(lang, path), Astro.site).href;
 const canonical = urlFor(locale);
 const ogImage = new URL('/og.png', Astro.site).href;
 
@@ -100,7 +101,7 @@ const jsonLd = {
 	<body>
 		<Loader />
 		<a class="skip-link" href="#main">{skip}</a>
-		<Nav />
+		<Nav path={path} />
 		<main id="main">
 			<slot />
 		</main>

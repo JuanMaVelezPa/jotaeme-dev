@@ -1,0 +1,100 @@
+---
+import { ui } from '../lib/i18n';
+import { getLocale, labs } from '../lib/content';
+import LabCard from './lab/LabCard.astro';
+
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale].lab;
+---
+
+<section class="lab" aria-labelledby="lab-title">
+	<header class="head">
+		<h1 id="lab-title" class="anim" style="--i: 0">{t.title}</h1>
+		<p class="intro-text anim" style="--i: 1">{t.intro}</p>
+	</header>
+	<ul class="list" aria-label={t.list}>
+		{labs.map((lab) => <LabCard lab={lab} />)}
+	</ul>
+</section>
+
+<style>
+	.lab {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 3rem 1rem 8rem;
+	}
+
+	.head {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	.lab h1 {
+		margin: 0;
+		color: var(--jm-lab);
+	}
+
+	/* The brand cursor after the title, blinking like the jm wordmark. */
+	.lab h1::after {
+		content: '';
+		display: inline-block;
+		width: 0.07em;
+		height: 0.82em;
+		margin-left: 0.12em;
+		background: var(--jm-lab);
+		animation: jm-blink var(--jm-dur-blink) steps(1) infinite;
+	}
+
+	@keyframes jm-blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	.intro-text {
+		max-width: 52ch;
+		margin: 0.5rem 0 0;
+		font-size: 18px;
+		line-height: 1.6;
+		color: var(--jm-muted);
+	}
+
+	.list {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Header entrance: title and intro arrive one after another. Only with JavaScript. */
+	@media (prefers-reduced-motion: no-preference) {
+		:global(.js) .anim {
+			animation: jm-enter var(--jm-dur-enter) var(--jm-ease) both;
+			animation-delay: calc(var(--i) * var(--jm-dur-enter) / 8);
+		}
+
+		:global(.loader-on) .anim,
+		:global(.loader-on) .lab h1::after {
+			animation-play-state: paused;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.lab h1::after {
+			animation: none;
+		}
+	}
+
+	@media (max-width: 820px) {
+		.lab {
+			padding-bottom: 5rem;
+		}
+	}
+</style>
