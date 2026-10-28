@@ -1,0 +1,11 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Lab from '../../../components/Lab.astro';
+import { ui } from '../../../lib/i18n';
+
+const { meta } = ui.es.lab;
+---
+
+<Base title={meta.title} description={meta.description} path="lab/">
+	<Lab />
+</Base>

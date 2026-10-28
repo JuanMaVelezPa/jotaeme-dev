@@ -1,0 +1,37 @@
+[
+	{
+		"id": "n8n",
+		"icon": "n8n",
+		"order": 1,
+		"status": "active",
+		"access": "private",
+		"stack": [
+			"n8n",
+			"Ollama",
+			"Docker Compose",
+			"Cloudflare Tunnel",
+			"Cloudflare Access",
+			"Google Sheets"
+		],
+		"live": "https://lab-n8n.jotaeme.dev",
+		"repo": "https://github.com/JuanMaVelezPa/lab-n8n",
+		"es": {
+			"title": "lab-n8n",
+			"summary": "Workflows de n8n autoalojado que usan un LLM local. Cada uno lee usuarios y ajustes de un Google Sheet y envía el resultado por Gmail.",
+			"highlights": [
+				"Dos correos diarios: un resumen de noticias desde RSS (según idioma y nivel de inglés de cada usuario) y el Evangelio del día en inglés y español, con una reflexión.",
+				"LLM local con Ollama: ningún texto sale del servidor hacia un servicio de IA externo.",
+				"Tres contenedores con Docker Compose (n8n, cloudflared y Ollama), expuestos con Cloudflare Tunnel y protegidos con Cloudflare Access y PIN de un solo uso."
+			]
+		},
+		"en": {
+			"title": "lab-n8n",
+			"summary": "Self-hosted n8n workflows that use a local LLM. Each one reads users and settings from a Google Sheet and sends its output by Gmail.",
+			"highlights": [
+				"Two daily emails: a news digest from RSS feeds (per-user language and English level) and the day's gospel in English and Spanish, with a reflection.",
+				"Local LLM with Ollama: no text leaves the server for an external AI service.",
+				"Three Docker Compose containers (n8n, cloudflared, Ollama), exposed through Cloudflare Tunnel behind Cloudflare Access with a one-time PIN."
+			]
+		}
+	}
+]

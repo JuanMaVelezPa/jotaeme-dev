@@ -1,0 +1,294 @@
+---
+import { ui } from '../../lib/i18n';
+import { getLocale, type Lab } from '../../lib/content';
+
+interface Props {
+	lab: Lab;
+}
+
+const { lab } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale].lab;
+const text = lab[locale];
+// Optional glyph of the lab's main tool: src/assets/icons/<icon>.svg, drawn with currentColor.
+const icons = import.meta.glob<string>('../../assets/icons/*.svg', { query: '?raw', import: 'default', eager: true });
+const icon = lab.icon ? icons[`../../assets/icons/${lab.icon}.svg`] : undefined;
+const external = { target: '_blank', rel: 'noopener noreferrer' };
+---
+
+<li id={lab.id} class="card reveal" data-status={lab.status}>
+	<div class="top">
+		<div class="title">
+			{icon && <span class="tile" aria-hidden="true" set:html={icon} />}
+			<h2>{text.title}</h2>
+		</div>
+		<p class="status"><span class="status-dot" aria-hidden="true" />{t.status[lab.status]}</p>
+	</div>
+	<p class="summary">{text.summary}</p>
+	<ul class="highlights" aria-label={t.highlights}>
+		{text.highlights.map((item) => <li>{item}</li>)}
+	</ul>
+	<ul class="stack" aria-label={t.stack}>
+		{lab.stack.map((item) => <li>{item}</li>)}
+	</ul>
+	<div class="foot">
+		<p class="access" data-access={lab.access}>{t.access[lab.access]}</p>
+		{
+			(lab.live || lab.repo) && (
+				<p class="links">
+					{lab.live && (
+						<a class="button" href={lab.live} {...external}>
+							{t.live}
+							<span aria-hidden="true">↗</span>
+						</a>
+					)}
+					{lab.repo && (
+						<a class="button" href={lab.repo} {...external}>
+							{t.repo}
+							<span aria-hidden="true">↗</span>
+						</a>
+					)}
+				</p>
+			)
+		}
+	</div>
+</li>
+
+<style>
+	.card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.4rem;
+		margin: 0;
+		padding: 2rem;
+		border: 1px solid var(--jm-border);
+		border-radius: 22px;
+		background: var(--jm-surface-2);
+		transition: border-color 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	@media (hover: hover) {
+		.card:hover {
+			border-color: color-mix(in srgb, var(--jm-lab), transparent 45%);
+			box-shadow: 0 24px 70px -36px color-mix(in srgb, var(--jm-lab), transparent 55%);
+		}
+	}
+
+	.top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem 1rem;
+	}
+
+	.title {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		min-width: 0;
+	}
+
+	.tile {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: none;
+		width: 44px;
+		height: 44px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-sm);
+		background: var(--jm-surface);
+		color: var(--jm-bone);
+		transition: border-color 0.3s ease, color 0.3s ease;
+	}
+
+	.tile :global(svg) {
+		width: 22px;
+		height: 22px;
+	}
+
+	@media (hover: hover) {
+		.card:hover .tile {
+			border-color: color-mix(in srgb, var(--jm-lab), transparent 45%);
+			color: var(--jm-lab);
+		}
+	}
+
+	h2 {
+		margin: 0;
+		font-family: var(--jm-font-mono);
+		font-size: clamp(26px, 3vw, 34px);
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		line-height: 1.1;
+		overflow-wrap: anywhere;
+	}
+
+	.status,
+	.access {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin: 0;
+		padding: 6px 12px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-pill);
+		font-size: 12px;
+		line-height: 1.4;
+		color: var(--jm-muted);
+	}
+
+	.status-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--jm-lab);
+	}
+
+	@keyframes jm-pulse {
+		from {
+			box-shadow: 0 0 0 0 color-mix(in srgb, var(--jm-lab), transparent 40%);
+		}
+		to {
+			box-shadow: 0 0 0 9px transparent;
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		[data-status='active'] .status-dot {
+			animation: jm-pulse calc(var(--jm-dur-blink) * 2) ease-out infinite;
+		}
+
+		:global(.loader-on) .status-dot {
+			animation-play-state: paused;
+		}
+	}
+
+	[data-status='paused'] .status-dot,
+	[data-status='archived'] .status-dot {
+		background: var(--jm-dim);
+	}
+
+	.summary {
+		margin: 0;
+		font-size: 16px;
+		line-height: 1.65;
+		color: var(--jm-muted);
+	}
+
+	.highlights {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.highlights li {
+		position: relative;
+		margin: 0;
+		padding-left: 1.1rem;
+		font-size: 15px;
+		line-height: 1.6;
+	}
+
+	.highlights li::before {
+		content: '';
+		position: absolute;
+		inset: 0.2em auto 0.2em 0;
+		width: 2px;
+		background: color-mix(in srgb, var(--jm-lab), transparent 45%);
+		transform-origin: top;
+	}
+
+	@keyframes jm-draw {
+		from {
+			transform: scaleY(0);
+		}
+		to {
+			transform: none;
+		}
+	}
+
+	/* The rule next to each highlight draws itself as the card scrolls into view. */
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: view()) {
+			:global(.js) .highlights li::before {
+				animation: jm-draw linear both;
+				animation-timeline: view();
+				animation-range: entry 30% cover 38%;
+			}
+		}
+	}
+
+	.stack {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.stack li {
+		margin: 0;
+		padding: 4px 10px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-sm);
+		font-family: var(--jm-font-mono);
+		font-size: 12px;
+		line-height: 1.5;
+		color: var(--jm-muted);
+		transition: border-color 0.25s ease, color 0.25s ease;
+	}
+
+	@media (hover: hover) {
+		.stack li:hover {
+			border-color: var(--jm-lab);
+			color: var(--jm-bone);
+		}
+	}
+
+	/* Same closing line as the Ecosystem tiles: what the live URL needs, then the way in. */
+	.foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem 1rem;
+		margin-top: auto;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--jm-border);
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+	}
+
+	.links .button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-height: 44px;
+		padding: 0 1.1rem;
+		font-size: 14px;
+	}
+
+	.links .button:hover,
+	.links .button:active {
+		border-color: var(--jm-lab);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.card,
+		.tile,
+		.stack li {
+			transition: none;
+		}
+	}
+</style>
