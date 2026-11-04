@@ -1,6 +1,6 @@
 # SPEC 05 — Mobile nav, Projects menu, one-row footer and human copy
 
-> **Status:** Draft
+> **Status:** Implemented
 > **Depends on:** SPEC 04 (Implemented), personal-branding repo SPEC 05 and decision 010
 > **Date:** 2026-10-29
 > **Objective:** Put the nav behind a burger icon on small screens, add an Apple-style Projects menu with three categories (Code · Apps · Lab), shrink the footer to one row, and rewrite the site copy so it reads like a developer talking, not like generated text.
@@ -200,30 +200,46 @@ The owner decision is one of: `approve`, `edit: <text>` or `reject` (keep the cu
 
 ## Acceptance criteria
 
-- [ ] At 320 to 820 px, the bar shows only the logo and the burger icon. No text label, "Let's talk" or language switch is in the bar.
-- [ ] At 320 px in Spanish, the bar fits with no element touching the screen edge, and `document.documentElement.scrollWidth <= window.innerWidth`.
-- [ ] The burger has `aria-expanded`, `aria-controls` and the accessible names "Open menu" / "Close menu" ("Abrir menú" / "Cerrar menú"). The icon changes to an X when open.
-- [ ] With the mobile panel open, the page behind does not scroll. Escape closes the panel and returns focus to the burger. Tapping a link closes it.
-- [ ] The mobile panel contains the section links, the Projects accordion, `English` · `Español` with the active one marked `aria-current="true"`, and "Let's talk" as the last element.
-- [ ] On desktop, "Projects" is a `<button>` with `aria-expanded`. Click, Enter and Space toggle the panel. Hovering opens it. Escape closes it and returns focus to the button. An outside click closes it. Moving focus past its last link closes it.
-- [ ] The panel shows Code (`spring-web`, `devsu-microservicios`, each with `Soon` and no `<a>`), Apps (`Soon`, no `<a>`), and Lab (`lab-n8n` linking to `https://lab-n8n.jotaeme.dev` with `target="_blank"` and `rel="noopener noreferrer"`, plus "See all Lab" linking to `/lab/` in EN and `/es/lab/` in ES).
-- [ ] Adding an active lab to `labs.json` adds it to the Lab column with no component change. Adding an object to `projects.json` adds it to its column.
-- [ ] With JavaScript disabled, "Projects" is a link to the home ecosystem section and every nav link is reachable.
-- [ ] At ≥ 768 px, the footer is one row. Below 768 px it takes at most two lines. It contains no legal or privacy text. Its network list is `code · apps · lab`, and only `lab` has an `<a>`.
-- [ ] The Ecosystem section shows three tiles in the order `code`, `apps`, `lab`, with host lines `jotaeme.dev/code`, `jotaeme.dev/apps` and `jotaeme.dev/lab`. No `free` tile and no `*.jotaeme.dev` category host remains.
-- [ ] `grep -rn "jm-free\|c-free" src` returns nothing. `--jm-code` and `--jm-available` are defined only in `tokens.css`, both `#7AD1A0`. `--jm-apps` and `--jm-lab` keep their values.
-- [ ] The hero status dot and the `apps` and `lab` tiles look the same as the baseline screenshots, and the `code` tile has the green the `free` tile had.
-- [ ] Every key listed in "Copy in review" has an owner decision in the table, and the site shows exactly the approved text in both languages.
-- [ ] After step 2, `dist/` is identical to the baseline (the split moved text without changing it).
-- [ ] No key exists in both `copy.json` and `es.json` / `en.json`. `sitio/es.json` and `sitio/en.json` in the branding repo contain only the career-fact keys listed in "Data model".
-- [ ] The `diff` from the branding repo's `sitio/README.md` shows no output for `site.json`, `es.json` and `en.json`.
-- [ ] The branding repo's `decisiones.md` contains decision 011. Its `CLAUDE.md` and `sitio/README.md` say that the site copy lives in `jotaeme-dev/src/content/copy.json`, and this repo's `CLAUDE.md` says that `copy.json` is owned here.
-- [ ] Nothing changes in the branding repo's `cv/`, `branding/linkedin.md` or `branding/github.md`.
-- [ ] `specs/05-copy-review.md` no longer exists.
-- [ ] At every width from step 12, interactive elements are at least 44×44 px and there is no horizontal overflow.
-- [ ] With `prefers-reduced-motion: reduce`, the menu, the panel and the burger open with no animation.
-- [ ] No hex color is added outside `tokens.css`. No phone number, private document, "Senior", AI mention outside "How I work", or client outside decision 006 is added.
-- [ ] `npm run build` finishes without errors or warnings.
+- [x] At 320 to 820 px, the bar shows only the logo and the burger icon. No text label, "Let's talk" or language switch is in the bar.
+- [x] At 320 px in Spanish, the bar fits with no element touching the screen edge, and `document.documentElement.scrollWidth <= window.innerWidth`.
+- [x] The burger has `aria-expanded`, `aria-controls` and the accessible names "Open menu" / "Close menu" ("Abrir menú" / "Cerrar menú"). The icon changes to an X when open.
+- [x] With the mobile panel open, the page behind does not scroll. Escape closes the panel and returns focus to the burger. Tapping a link closes it.
+- [x] The mobile panel contains the section links, the Projects accordion, `English` · `Español` with the active one marked `aria-current="true"`, and "Let's talk" as the last element.
+- [x] On desktop, "Projects" is a `<button>` with `aria-expanded`. Click, Enter and Space toggle the panel. Hovering opens it. Escape closes it and returns focus to the button. An outside click closes it. Moving focus past its last link closes it.
+- [x] The panel shows Code (`spring-web`, `devsu-microservicios`, each with `Soon` and no `<a>`), Apps (`Soon`, no `<a>`), and Lab (`lab-n8n` linking to `https://lab-n8n.jotaeme.dev` with `target="_blank"` and `rel="noopener noreferrer"`, plus "See all Lab" linking to `/lab/` in EN and `/es/lab/` in ES).
+- [x] Adding an active lab to `labs.json` adds it to the Lab column with no component change. Adding an object to `projects.json` adds it to its column.
+- [x] With JavaScript disabled, "Projects" is a link to the home ecosystem section and every nav link is reachable.
+- [x] At ≥ 768 px, the footer is one row. Below 768 px it takes at most two lines. It contains no legal or privacy text. Its network list is `code · apps · lab`, and only `lab` has an `<a>`.
+- [x] The Ecosystem section shows three tiles in the order `code`, `apps`, `lab`, with host lines `jotaeme.dev/code`, `jotaeme.dev/apps` and `jotaeme.dev/lab`. No `free` tile and no `*.jotaeme.dev` category host remains.
+- [x] `grep -rn "jm-free\|c-free" src` returns nothing. `--jm-code` and `--jm-available` are defined only in `tokens.css`, both `#7AD1A0`. `--jm-apps` and `--jm-lab` keep their values.
+- [x] The hero status dot and the `apps` and `lab` tiles look the same as the baseline screenshots, and the `code` tile has the green the `free` tile had.
+- [x] Every key listed in "Copy in review" has an owner decision in the table, and the site shows exactly the approved text in both languages.
+- [x] After step 2, `dist/` is identical to the baseline (the split moved text without changing it).
+- [x] No key exists in both `copy.json` and `es.json` / `en.json`. `sitio/es.json` and `sitio/en.json` in the branding repo contain only the career-fact keys listed in "Data model".
+- [x] The `diff` from the branding repo's `sitio/README.md` shows no output for `site.json`, `es.json` and `en.json`.
+- [x] The branding repo's `decisiones.md` contains decision 011. Its `CLAUDE.md` and `sitio/README.md` say that the site copy lives in `jotaeme-dev/src/content/copy.json`, and this repo's `CLAUDE.md` says that `copy.json` is owned here.
+- [x] Nothing changes in the branding repo's `cv/`, `branding/linkedin.md` or `branding/github.md`.
+- [x] `specs/05-copy-review.md` no longer exists.
+- [x] At every width from step 12, interactive elements are at least 44×44 px and there is no horizontal overflow.
+- [x] With `prefers-reduced-motion: reduce`, the menu, the panel and the burger open with no animation.
+- [x] No hex color is added outside `tokens.css`. No phone number, private document, "Senior", AI mention outside "How I work", or client outside decision 006 is added.
+- [x] `npm run build` finishes without errors or warnings.
+
+## Implementation notes
+
+Differences between the plan and what was built, found during the work:
+
+- **Components that read the JSON directly.** `pages/index.astro`, `pages/es/index.astro` and `Hero.astro` imported `es.json` / `en.json`, so they lost `meta` and `hero` after the split. Each now reads from `content` in `content.ts` (an import change only, no markup change). `Stats.astro` and `skills.ts` read only career facts and did not change.
+- **Branding repo path.** The repo is at `/home/jmvelez/jmvelez/PersonalBranding`, not `/mnt/data/apps/PersonalBranding`. Its changes are in the working tree, not committed.
+- **`sobre_mi` is in both files by design.** `content.ts` merges it field by field and fails the build if a sub-key (not the object) exists in both.
+- **Footer under 430 px.** The approved `pie` wraps to two lines below 430 px, which would make three lines with the network row. The component splits `pie` at ` · ` and hides the city part below 430 px. `copy.json` keeps the full text. Decision of the owner.
+- **New timing token.** `--jm-dur-fast: .2s` was added to `tokens.css` for the menu and burger motion (rule: timings come only from tokens). The nav's old `.2s` literals now use it.
+- **Footer step order.** The footer's `free` entry was renamed to `code` in step 5, because removing `--jm-free` broke it. Step 10 did the rest.
+- **Burger placement.** The burger button comes before the panel in the DOM, so Tab goes from it into the open menu. Found in the step 12 keyboard test.
+- **Selector specificity.** Astro scoped CSS raises specificity, so the rule that hides the plain "Projects" link when JavaScript is on uses `.nav-links a.projects-link`.
+- **Unused labels.** `projectsMenu.open` and `projectsMenu.close` exist in `i18n.ts` but are not used: a button whose name changes with its state clashes with `aria-expanded`.
+- **Playwright MCP.** Its browser profile was locked by another machine, so step 12 ran with standalone `playwright-core` and a throwaway profile.
+- **Not verifiable here.** Scroll lock on iOS Safari at 390 px, and the feel of the hover-open menu with a real mouse, need a check on real devices.
 
 ## Decisions
 

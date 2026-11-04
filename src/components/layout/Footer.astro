@@ -6,16 +6,17 @@ import { content, getLocale } from '../../lib/content';
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const network = [
-	{ name: 'jotaeme.dev', color: 'var(--jm-bone)' },
+	{ name: 'code', color: 'var(--jm-code)' },
 	{ name: 'apps', color: 'var(--jm-apps)' },
-	{ name: 'free', color: 'var(--jm-free)' },
 	{ name: 'lab', color: 'var(--jm-lab)', href: getRelativeLocaleUrl(locale, 'lab/') },
 ];
+// The city part of the line is hidden on narrow screens so the footer stays at two lines.
+const [owner, ...place] = content[locale].pie.split(' · ');
 ---
 
 <footer class="site-footer">
 	<div class="inner">
-		<span class="copy">{content[locale].pie}</span>
+		<span class="copy">{owner}{place.length > 0 && <span class="place">&nbsp;· {place.join(' · ')}</span>}</span>
 		<div class="side">
 			<ul class="network" aria-label={t.footerNetwork}>
 				{
@@ -53,23 +54,23 @@ const network = [
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
-		gap: 0.75rem 2rem;
+		gap: 0 2rem;
 		max-width: 1240px;
 		margin: 0 auto;
-		padding: 1.75rem 1rem;
+		padding: 0.25rem 1rem;
 	}
 
 	.side {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.25rem 1.5rem;
+		gap: 0 1.5rem;
 	}
 
 	.network {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.25rem 1.5rem;
+		gap: 0 1.5rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
@@ -84,6 +85,12 @@ const network = [
 		min-width: 44px;
 		min-height: 44px;
 		margin: 0;
+	}
+
+	@media (max-width: 429px) {
+		.place {
+			display: none;
+		}
 	}
 
 	.bar {

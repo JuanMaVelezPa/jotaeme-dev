@@ -6,7 +6,7 @@ import { content, getLocale } from '../../lib/content';
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const data = content[locale].ecosistema;
-// Only the lab has a page so far; apps and free stay plain text until theirs exist.
+// Only the lab has a page so far; code and apps stay plain text until theirs exist.
 const pages: Record<string, string> = { lab: getRelativeLocaleUrl(locale, 'lab/') };
 ---
 
@@ -31,7 +31,7 @@ const pages: Record<string, string> = { lab: getRelativeLocaleUrl(locale, 'lab/'
 						<h3>{pages[card.id] ? <a class="card-link" href={pages[card.id]}>{card.titulo}</a> : card.titulo}</h3>
 						<p>{card.descripcion}</p>
 					</div>
-					<p class="host">{pages[card.id] ? `jotaeme.dev/${card.id}` : `${card.id}.jotaeme.dev`}</p>
+					<p class="host">jotaeme.dev/{card.id}</p>
 				</li>
 			))
 		}
@@ -102,8 +102,8 @@ const pages: Record<string, string> = { lab: getRelativeLocaleUrl(locale, 'lab/'
 		background: var(--jm-surface-2);
 	}
 
+	.c-code { --sub: var(--jm-code); }
 	.c-apps { --sub: var(--jm-apps); }
-	.c-free { --sub: var(--jm-free); }
 	.c-lab { --sub: var(--jm-lab); }
 
 	.card {
