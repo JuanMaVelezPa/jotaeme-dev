@@ -1,0 +1,138 @@
+{
+  "es": {
+    "hero": {
+      "eyebrow": "Disponible para nuevos roles y proyectos · Medellín, CO",
+      "bajada": "Desarrollador backend Java. Construyo sistemas de alto volumen en producción para el sector financiero colombiano, con Spring Boot, microservicios y Oracle.",
+      "boton_contacto": "Escríbeme",
+      "destacado": "sistemas de alto volumen en producción"
+    },
+    "sobre_mi": {
+      "titular": "Diseño y construyo backend para bancos: sistemas que corren en producción todos los días."
+    },
+    "experiencia_seccion": {
+      "titulo": "Dónde he trabajado"
+    },
+    "stack": {
+      "titulo": "Lo que uso en producción",
+      "descripcion": "De la API a la base de datos, de punta a punta."
+    },
+    "servicios": [
+      {
+        "titulo": "APIs y servicios backend",
+        "descripcion": "APIs y servicios con Java y Spring Boot, del diseño al despliegue. Con pruebas y listos para producción."
+      },
+      {
+        "titulo": "Integración y modernización",
+        "descripcion": "Conecto y actualizo sistemas con Oracle, PL/SQL y servicios SOAP/REST."
+      },
+      {
+        "titulo": "Automatización de procesos y reportes",
+        "descripcion": "Automatizo procesos y reportes con Python y Power BI. Menos trabajo manual."
+      }
+    ],
+    "servicios_seccion": {
+      "titulo": "Qué puedo hacer por tu equipo"
+    },
+    "ecosistema": {
+      "titulo": "Más allá de la hoja de vida",
+      "descripcion": "Tres secciones: código backend, apps y mi lab personal. Cada proyecto que corre tiene su propio subdominio.",
+      "tarjetas": [
+        {
+          "id": "code",
+          "estado": "Próximamente",
+          "titulo": "Code",
+          "descripcion": "Proyectos backend con Java y Spring Boot, para ver cómo trabajo."
+        },
+        {
+          "id": "apps",
+          "estado": "Próximamente",
+          "titulo": "Apps",
+          "descripcion": "Apps gratis y de pago que puedes usar, comprar o licenciar."
+        },
+        {
+          "id": "lab",
+          "estado": "Activo",
+          "titulo": "Lab",
+          "descripcion": "Automatizaciones con n8n autoalojado y otros proyectos propios."
+        }
+      ],
+      "titular": "Código, apps y proyectos propios"
+    },
+    "contacto": {
+      "titular": "¿Hay un proyecto o una vacante? Hablemos."
+    },
+    "pie": "© 2026 Juan Manuel Vélez Parra · Medellín, Colombia",
+    "meta": {
+      "titulo": "Juan Manuel Vélez Parra — Desarrollador Backend Java",
+      "descripcion": "Juan Manuel Vélez Parra, desarrollador backend Java en Medellín, Colombia. Sistemas de alto volumen con Spring Boot y Oracle para el sector financiero."
+    }
+  },
+  "en": {
+    "hero": {
+      "eyebrow": "Open to new roles and projects · Medellín, CO",
+      "bajada": "Java backend engineer. I build high-volume systems in production for Colombia's financial sector, with Spring Boot, microservices, and Oracle.",
+      "boton_contacto": "Get in touch",
+      "destacado": "high-volume systems in production"
+    },
+    "sobre_mi": {
+      "titular": "I design and build backend for banks: systems that run in production every day."
+    },
+    "experiencia_seccion": {
+      "titulo": "Where I've worked"
+    },
+    "stack": {
+      "titulo": "What I use in production",
+      "descripcion": "From the API to the database, end to end."
+    },
+    "servicios": [
+      {
+        "titulo": "Backend APIs and services",
+        "descripcion": "APIs and services with Java and Spring Boot, from design to deployment. Tested and ready for production."
+      },
+      {
+        "titulo": "Integration and modernization",
+        "descripcion": "I connect and update systems with Oracle, PL/SQL, and SOAP/REST services."
+      },
+      {
+        "titulo": "Process and report automation",
+        "descripcion": "I automate processes and reports with Python and Power BI. Less manual work."
+      }
+    ],
+    "servicios_seccion": {
+      "titulo": "What I can do for your team"
+    },
+    "ecosistema": {
+      "titulo": "Beyond the CV",
+      "descripcion": "Three sections: backend code, apps, and my personal lab. Each project that is running has its own subdomain.",
+      "tarjetas": [
+        {
+          "id": "code",
+          "estado": "Soon",
+          "titulo": "Code",
+          "descripcion": "Backend projects with Java and Spring Boot, to show how I work."
+        },
+        {
+          "id": "apps",
+          "estado": "Soon",
+          "titulo": "Apps",
+          "descripcion": "Free and paid apps you can use, buy, or license."
+        },
+        {
+          "id": "lab",
+          "estado": "Active",
+          "titulo": "Lab",
+          "descripcion": "Self-hosted n8n automations and other side projects."
+        }
+      ],
+      "titular": "Code, apps, and side projects"
+    },
+    "contacto": {
+      "titular": "Got a project or an open role? Let's talk."
+    },
+    "pie": "© 2026 Juan Manuel Vélez Parra · Medellín, Colombia",
+    "meta": {
+      "titulo": "Juan Manuel Vélez Parra — Java Backend Engineer",
+      "descripcion": "Juan Manuel Vélez Parra, Java backend engineer in Medellín, Colombia. High-volume systems with Spring Boot and Oracle for the financial sector."
+    }
+  }
+}

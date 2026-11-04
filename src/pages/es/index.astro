@@ -1,9 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Home from '../../components/Home.astro';
-import es from '../../content/es.json';
+import { content } from '../../lib/content';
 ---
 
-<Base title={es.meta.titulo} description={es.meta.descripcion}>
+<Base title={content.es.meta.titulo} description={content.es.meta.descripcion}>
 	<Home />
 </Base>

@@ -126,12 +126,6 @@
       ]
     }
   ],
-  "hero": {
-    "eyebrow": "Open to new roles and projects · Medellín, CO",
-    "bajada": "Java backend engineer building critical, high-volume systems for Colombia's financial sector, with Spring Boot, microservices, and Oracle.",
-    "boton_contacto": "Get in touch",
-    "destacado": "critical, high-volume systems"
-  },
   "estadisticas": [
     {
       "valor": "5+",
@@ -151,7 +145,6 @@
     }
   ],
   "sobre_mi": {
-    "titular": "I design and build the backend systems banks rely on every day: reliable, secure, and built to last.",
     "chips": [
       "Hexagonal architecture",
       "SOLID",
@@ -166,62 +159,5 @@
       "Tests and review for every change.",
       "Tools: Claude Code and Cursor."
     ]
-  },
-  "experiencia_seccion": {
-    "titulo": "Where I've been shipping"
-  },
-  "stack": {
-    "titulo": "Tools I use in production",
-    "descripcion": "From reactive APIs to the database, the whole backend path."
-  },
-  "servicios": [
-    {
-      "titulo": "Backend APIs and services",
-      "descripcion": "Backend APIs and services with Java and Spring Boot. Built for high volume, tested, and ready to deploy."
-    },
-    {
-      "titulo": "Integration and modernization",
-      "descripcion": "System integration and modernization with Oracle, PL/SQL, and SOAP/REST services."
-    },
-    {
-      "titulo": "Process and report automation",
-      "descripcion": "Process and report automation with Python and Power BI. Less manual work, better data."
-    }
-  ],
-  "servicios_seccion": {
-    "titulo": "How I can help your team"
-  },
-  "ecosistema": {
-    "titulo": "Beyond the CV",
-    "descripcion": "jotaeme.dev is the hub. Products, free tools, and experiments will each have their own subdomain.",
-    "tarjetas": [
-      {
-        "id": "apps",
-        "estado": "Coming soon",
-        "titulo": "Products",
-        "descripcion": "Apps and projects to buy or license."
-      },
-      {
-        "id": "free",
-        "estado": "Coming soon",
-        "titulo": "Open apps",
-        "descripcion": "Free, non-profit web apps anyone can use."
-      },
-      {
-        "id": "lab",
-        "estado": "Private",
-        "titulo": "Lab",
-        "descripcion": "Self-hosted automation with n8n and personal experiments."
-      }
-    ],
-    "titular": "Everything I build lives here"
-  },
-  "contacto": {
-    "titular": "Let's build something reliable together."
-  },
-  "pie": "© 2026 Juan Manuel Vélez Parra · Medellín, Colombia",
-  "meta": {
-    "titulo": "Juan Manuel Vélez Parra — Java Backend Engineer",
-    "descripcion": "Juan Manuel Vélez Parra, Java backend engineer in Medellín, Colombia. Critical, high-volume systems with Spring Boot and Oracle for finance."
   }
 }

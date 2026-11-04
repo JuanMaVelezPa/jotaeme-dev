@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui } from '../../lib/i18n';
 import Logo from './Logo.astro';
+import ProjectsMenu from './ProjectsMenu.astro';
 
 interface Props {
 	path?: string;
@@ -19,27 +20,58 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 <header class="nav">
 	<div class="nav-bar">
 		<Logo wordmark />
-		<nav id="nav-links" class="nav-links" aria-label={t.nav}>
-			<ul>
-				{links.map((link) => <li><a href={`${home}#${link.id}`}>{link.label}</a></li>)}
-			</ul>
-		</nav>
-		<div class="nav-actions">
-			<a class="lang-link" href={getRelativeLocaleUrl(other, path)} hreflang={other} lang={other} aria-label={ui[other].language}>
-				<span class:list={{ current: locale === 'en' }}>EN</span> / <span class:list={{ current: locale === 'es' }}>ES</span>
-			</a>
-			<a class="button button-primary button-talk" href={`${home}#${t.contact.id}`}>{t.talk}</a>
-			<button
-				type="button"
-				class="nav-toggle"
-				aria-expanded="false"
-				aria-controls="nav-links"
-				data-open={t.menu.open}
-				data-close={t.menu.close}
-				aria-label={t.menu.open}
-			>
-				<span aria-hidden="true">{t.menu.label}</span>
-			</button>
+		{/* The burger comes before the panel so Tab goes from it into the open menu. */}
+		<button
+			type="button"
+			class="nav-toggle"
+			aria-expanded="false"
+			aria-controls="nav-panel"
+			data-open={t.menu.open}
+			data-close={t.menu.close}
+			aria-label={t.menu.open}
+		>
+			<span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+		</button>
+		<div id="nav-panel" class="nav-panel">
+			<nav id="nav-links" class="nav-links" aria-label={t.nav}>
+				<ul>
+					{
+						links.map((link) =>
+							link.id === t.ecosystem.id ? (
+								<li class="nav-projects">
+									<a class="projects-link" href={`${home}#${link.id}`}>{link.label}</a>
+									<button type="button" class="projects-toggle" aria-expanded="false" aria-controls="projects-panel">
+										{link.label}
+									</button>
+									<ProjectsMenu id="projects-panel" home={home} />
+								</li>
+							) : (
+								<li><a href={`${home}#${link.id}`}>{link.label}</a></li>
+							),
+						)
+					}
+				</ul>
+			</nav>
+			<div class="nav-actions">
+				<a class="lang-link" href={getRelativeLocaleUrl(other, path)} hreflang={other} lang={other} aria-label={ui[other].language}>
+					<span class:list={{ current: locale === 'en' }}>EN</span> / <span class:list={{ current: locale === 'es' }}>ES</span>
+				</a>
+				<div class="lang-switch">
+					{
+						(['en', 'es'] as const).map((code, i) => (
+							<>
+								{i > 0 && <span class="lang-sep" aria-hidden="true">·</span>}
+								{code === locale ? (
+									<span class="lang-option current" lang={code} aria-current="true">{t.languages[code]}</span>
+								) : (
+									<a class="lang-option" href={getRelativeLocaleUrl(code, path)} hreflang={code} lang={code}>{t.languages[code]}</a>
+								)}
+							</>
+						))
+					}
+				</div>
+				<a class="button button-primary button-talk" href={`${home}#${t.contact.id}`}>{t.talk}</a>
+			</div>
 		</div>
 	</div>
 </header>
@@ -47,11 +79,15 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 <script>
 	const header = document.querySelector<HTMLElement>('.nav');
 	const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
-	const panel = document.getElementById('nav-links');
+	const panel = document.getElementById('nav-panel');
+	const desktop = window.matchMedia('(min-width: 821px)');
 
 	if (header && toggle && panel) {
 		const setOpen = (open: boolean) => {
 			header.classList.toggle('nav-open', open);
+			document.documentElement.classList.toggle('nav-lock', open);
+			if (open) header.style.setProperty('--nav-h', `${header.offsetHeight}px`);
+			else document.querySelector('.projects-toggle')?.setAttribute('aria-expanded', 'false');
 			toggle.setAttribute('aria-expanded', String(open));
 			toggle.setAttribute('aria-label', (open ? toggle.dataset.close : toggle.dataset.open) ?? '');
 		};
@@ -66,6 +102,64 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 				toggle.focus();
 			}
 		});
+		desktop.addEventListener('change', (event) => {
+			if (event.matches) setOpen(false);
+		});
+	}
+
+	// Projects menu: a hover-and-click panel on desktop, an accordion inside the mobile panel.
+	const projectsItem = document.querySelector<HTMLElement>('.nav-projects');
+	const projectsToggle = document.querySelector<HTMLButtonElement>('.projects-toggle');
+
+	if (header && projectsItem && projectsToggle) {
+		const isOpen = () => projectsToggle.getAttribute('aria-expanded') === 'true';
+		// A hover opens the panel; the click that follows keeps it open instead of closing it.
+		let openedByHover = false;
+		const setProjects = (open: boolean) => {
+			if (!open) openedByHover = false;
+			projectsToggle.setAttribute('aria-expanded', String(open));
+		};
+		let closeTimer: number | undefined;
+		const cancelClose = () => window.clearTimeout(closeTimer);
+
+		projectsToggle.addEventListener('click', () => {
+			cancelClose();
+			if (openedByHover) openedByHover = false;
+			else setProjects(!isOpen());
+		});
+		projectsToggle.addEventListener('pointerenter', (event) => {
+			if (desktop.matches && event.pointerType === 'mouse') {
+				cancelClose();
+				if (!isOpen()) {
+					setProjects(true);
+					openedByHover = true;
+				}
+			}
+		});
+		header.addEventListener('pointerenter', cancelClose);
+		header.addEventListener('pointerleave', (event) => {
+			if (desktop.matches && event.pointerType === 'mouse') {
+				cancelClose();
+				closeTimer = window.setTimeout(() => setProjects(false), 150);
+			}
+		});
+		header.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && desktop.matches && isOpen()) {
+				setProjects(false);
+				projectsToggle.focus();
+			}
+		});
+		document.addEventListener('click', (event) => {
+			if (desktop.matches && isOpen() && !projectsItem.contains(event.target as Node)) setProjects(false);
+		});
+		projectsItem.addEventListener('focusout', (event) => {
+			const next = event.relatedTarget as Node | null;
+			if (desktop.matches && next && !projectsItem.contains(next)) setProjects(false);
+		});
+		projectsItem.addEventListener('click', (event) => {
+			if ((event.target as HTMLElement).closest('a')) setProjects(false);
+		});
+		desktop.addEventListener('change', () => setProjects(false));
 	}
 </script>
 
@@ -104,6 +198,7 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 	}
 
 	.nav-links a,
+	.projects-toggle,
 	.lang-link {
 		display: inline-flex;
 		align-items: center;
@@ -112,16 +207,40 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 		min-height: 44px;
 		text-decoration: none;
 		color: var(--jm-muted);
-		transition: color 0.2s;
+		transition: color var(--jm-dur-fast);
 	}
 
-	.nav-links a {
+	.nav-links a,
+	.projects-toggle {
 		font-size: 15px;
 		white-space: nowrap;
 	}
 
+	.projects-toggle {
+		display: none;
+		padding: 0 4px;
+		border: 0;
+		background: transparent;
+		font-family: inherit;
+		cursor: pointer;
+	}
+
+	.projects-toggle[aria-expanded='true'] {
+		color: var(--jm-bone);
+	}
+
+	/* With JavaScript the link becomes the button. Without it, the link stays. */
+	:global(.js) .nav-links a.projects-link {
+		display: none;
+	}
+
+	:global(.js) .nav-links .projects-toggle {
+		display: inline-flex;
+	}
+
 	.nav-links a:hover,
 	.nav-links a:active,
+	.projects-toggle:hover,
 	.lang-link:hover {
 		color: var(--jm-accent);
 	}
@@ -152,60 +271,115 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 		white-space: nowrap;
 	}
 
+	.lang-switch {
+		display: none;
+	}
+
+	/* On desktop the panel wrapper disappears: links and actions are direct items of the bar. */
+	.nav-panel {
+		display: contents;
+	}
+
 	.nav-toggle {
 		display: none;
-		align-items: center;
-		min-height: 44px;
-		padding: 0 0.9rem;
-		border: 1px solid var(--jm-border-strong);
-		border-radius: var(--jm-radius-pill);
+		position: relative;
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		border: 0;
 		background: transparent;
 		color: var(--jm-bone);
-		font-family: var(--jm-font-mono);
-		font-size: var(--jm-text-label);
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
 		cursor: pointer;
+	}
+
+	.burger span {
+		position: absolute;
+		left: 11px;
+		width: 22px;
+		height: 2px;
+		border-radius: 2px;
+		background: currentColor;
+	}
+
+	.burger span:nth-child(1) { top: 15px; }
+	.burger span:nth-child(2) { top: 21px; }
+	.burger span:nth-child(3) { top: 27px; }
+
+	.nav-toggle[aria-expanded='true'] .burger span:nth-child(1) {
+		top: 21px;
+		transform: rotate(45deg);
+	}
+
+	.nav-toggle[aria-expanded='true'] .burger span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.nav-toggle[aria-expanded='true'] .burger span:nth-child(3) {
+		top: 21px;
+		transform: rotate(-45deg);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.burger span {
+			transition: top var(--jm-dur-fast) var(--jm-ease), transform var(--jm-dur-fast) var(--jm-ease), opacity var(--jm-dur-fast);
+		}
+	}
+
+	:global(html.nav-lock) {
+		overflow: hidden;
 	}
 
 	@media (max-width: 820px) {
 		.nav-toggle {
-			display: inline-flex;
+			display: block;
 		}
 
-		/* Without JavaScript the links stay visible as a wrapping row. */
-		:global(.js) .nav-links {
+		.nav-panel {
+			display: block;
+		}
+
+		.lang-link {
 			display: none;
 		}
 
-		:global(.js) .nav-open .nav-links {
-			display: block;
-			position: absolute;
-			top: 100%;
-			left: 0;
-			right: 0;
-			padding: 0.5rem 1rem 1rem;
-			background: var(--jm-ink);
-			border-bottom: 1px solid var(--jm-border);
+		.lang-switch {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.25rem;
+			font-family: var(--jm-font-mono);
+			font-size: var(--jm-text-label);
 		}
 
-		:global(.js) .nav-open .nav-links ul {
-			flex-direction: column;
-			align-items: stretch;
-			gap: 0;
+		.lang-option {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 44px;
+			min-height: 44px;
+			padding: 0 0.9rem;
+			color: var(--jm-muted);
+			text-decoration: none;
 		}
 
-		:global(.js) .nav-open .nav-links a {
-			justify-content: flex-start;
-			width: 100%;
-			border-bottom: 1px solid var(--jm-border);
+		a.lang-option:hover {
+			color: var(--jm-accent);
 		}
 
+		.lang-option.current {
+			color: var(--jm-bone);
+		}
+
+		.lang-sep {
+			color: var(--jm-dim);
+		}
+
+		/* Without JavaScript the panel stays visible under the bar as a wrapping row. */
 		:global(html:not(.js)) .nav-bar {
 			flex-wrap: wrap;
 		}
 
-		:global(html:not(.js)) .nav-links {
+		:global(html:not(.js)) .nav-panel {
 			order: 3;
 			flex-basis: 100%;
 		}
@@ -215,18 +389,85 @@ const links = [t.about, t.experience, t.stack, t.services, t.ecosystem];
 			gap: 0 1.25rem;
 		}
 
+		:global(html:not(.js)) .nav-actions {
+			flex-wrap: wrap;
+			justify-content: space-between;
+		}
+
 		:global(html:not(.js)) .nav-toggle {
 			display: none;
 		}
-	}
 
-	@media (max-width: 420px) {
-		.nav-bar {
-			gap: 0.5rem;
+		:global(.js) .nav-panel {
+			display: none;
 		}
 
-		.nav-actions {
-			gap: 0.25rem;
+		:global(.js) .nav-open .nav-panel {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			box-sizing: border-box;
+			height: calc(100dvh - var(--nav-h, 80px));
+			padding: 0.5rem 1.5rem 2rem;
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			background: var(--jm-ink);
+			border-top: 1px solid var(--jm-border);
+		}
+
+		:global(.js) .nav-open .nav-links ul {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
+		}
+
+		:global(.js) .nav-links .projects-toggle {
+			justify-content: space-between;
+			width: 100%;
+			min-height: 56px;
+			padding: 0;
+			border-bottom: 1px solid var(--jm-border);
+			font-size: 18px;
+			text-align: left;
+		}
+
+		.projects-toggle::after {
+			content: '';
+			width: 8px;
+			height: 8px;
+			margin-right: 4px;
+			border-right: 2px solid currentColor;
+			border-bottom: 2px solid currentColor;
+			transform: translateY(-2px) rotate(45deg);
+		}
+
+		.projects-toggle[aria-expanded='true']::after {
+			transform: translateY(2px) rotate(-135deg);
+		}
+
+		:global(.js) .nav-open .nav-links a {
+			justify-content: flex-start;
+			width: 100%;
+			min-height: 56px;
+			border-bottom: 1px solid var(--jm-border);
+			font-size: 18px;
+		}
+
+		:global(.js) .nav-open .nav-actions {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 1.25rem;
+			margin-top: auto;
+			padding-top: 2rem;
+		}
+
+		:global(.js) .nav-open .button-talk {
+			justify-content: center;
+			min-height: 52px;
+			font-size: 16px;
 		}
 	}
 </style>

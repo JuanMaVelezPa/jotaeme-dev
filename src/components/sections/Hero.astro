@@ -1,14 +1,13 @@
 ---
 import { ui } from '../../lib/i18n';
 import site from '../../content/site.json';
-import es from '../../content/es.json';
-import en from '../../content/en.json';
+import { content } from '../../lib/content';
 import { globeLabels } from '../../lib/skills';
 import Globe from '../ui/Globe.astro';
 
 const locale = Astro.currentLocale === 'es' ? 'es' : 'en';
 const t = ui[locale];
-const { hero } = locale === 'es' ? es : en;
+const { hero } = content[locale];
 const [first, ...rest] = site.nombre.split(' ');
 const firstName = `${first} ${rest[0]}`;
 const lastName = rest.slice(1).join(' ');
@@ -90,7 +89,7 @@ const after = hero.bajada.slice(at + hero.destacado.length);
 		width: 8px;
 		height: 8px;
 		border-radius: 50%;
-		background: var(--jm-free);
+		background: var(--jm-available);
 	}
 
 	h1 {
@@ -175,7 +174,7 @@ const after = hero.bajada.slice(at + hero.destacado.length);
 	}
 
 	@keyframes pulse {
-		from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--jm-free), transparent 45%); }
+		from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--jm-available), transparent 45%); }
 		to { box-shadow: 0 0 0 10px transparent; }
 	}
 </style>
