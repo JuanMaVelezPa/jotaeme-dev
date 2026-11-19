@@ -3,6 +3,7 @@ import en from '../content/en.json';
 import copy from '../content/copy.json';
 import labsData from '../content/labs.json';
 import projectsData from '../content/projects.json';
+import privacyData from '../content/privacy.json';
 
 // es.json / en.json hold career facts (copied by hand from the branding repo).
 // copy.json holds the site copy (owned by this repo). A key must not exist in both.
@@ -68,3 +69,9 @@ export type ProjectItem = {
 };
 
 export const projects: ProjectItem[] = (projectsData as ProjectItem[]).slice().sort((a, b) => a.order - b.order);
+
+type PrivacySection = { title: string; paragraphs: string[]; links?: { label: string; href: string }[] };
+type PrivacyText = { intro: string; sections: PrivacySection[] };
+
+// Privacy policy text, owned by this repo. "{email}" is replaced with the contact address.
+export const privacy = privacyData as { updated: string; es: PrivacyText; en: PrivacyText };

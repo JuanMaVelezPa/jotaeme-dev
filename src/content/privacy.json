@@ -1,0 +1,119 @@
+{
+	"updated": "2026-11-19",
+	"en": {
+		"intro": "This policy explains which data I receive and how I use it, on jotaeme.dev and in the apps I publish on jotaeme.dev subdomains that use “Sign in with Google”.",
+		"sections": [
+			{
+				"title": "Who is responsible",
+				"paragraphs": [
+					"Juan Manuel Vélez Parra, Medellín, Colombia. For any question about your data, write to {email}."
+				]
+			},
+			{
+				"title": "This site",
+				"paragraphs": [
+					"jotaeme.dev uses no cookies, analytics or forms. It only stores a flag in your browser (sessionStorage) so the loading animation does not repeat, and that flag never leaves your device.",
+					"Cloudflare hosts the site and processes technical data, such as your IP address, to deliver and protect the pages."
+				]
+			},
+			{
+				"title": "Sign in with Google",
+				"paragraphs": [
+					"Some apps ask you to sign in with your Google account. From Google I receive only your email address and whether it is verified (the openid and email permissions). I never receive your password, contacts, files or any other data from your account."
+				]
+			},
+			{
+				"title": "How I use it",
+				"paragraphs": [
+					"Your email address is used only to identify you and to check that you have access to the app. I do not use it for advertising, I do not sell it, and I do not share it with third parties, except the providers that host the service (Cloudflare) or when the law requires it.",
+					"The data you work with inside an app, such as a business's records, belongs to whoever gave you access, and it is used only to provide the service.",
+					"The use of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements."
+				],
+				"links": [
+					{ "label": "Google API Services User Data Policy", "href": "https://developers.google.com/terms/api-services-user-data-policy" }
+				]
+			},
+			{
+				"title": "How long I keep it",
+				"paragraphs": [
+					"A session ends after at most 30 days without use, and is then deleted. Sessions are stored only as a cryptographic hash, never in plain text.",
+					"Each app records sign-ins (email address and time) for security, and keeps those records only as long as they are needed for that purpose. If your access is removed, your sessions stop working right away."
+				]
+			},
+			{
+				"title": "Your rights",
+				"paragraphs": [
+					"Under Colombian Law 1581 of 2012 you can ask to know, update, correct or delete your data, and you can withdraw your consent. Write to {email}.",
+					"You can also remove an app's access at any time from your Google account settings."
+				],
+				"links": [
+					{ "label": "Google account: third-party connections", "href": "https://myaccount.google.com/connections" }
+				]
+			},
+			{
+				"title": "Changes",
+				"paragraphs": [
+					"If this policy changes, I update this page and its date."
+				]
+			}
+		]
+	},
+	"es": {
+		"intro": "Esta política explica qué datos recibo y cómo los uso, en jotaeme.dev y en las apps que publico en subdominios de jotaeme.dev que usan «Iniciar sesión con Google».",
+		"sections": [
+			{
+				"title": "Responsable",
+				"paragraphs": [
+					"Juan Manuel Vélez Parra, Medellín, Colombia. Para cualquier pregunta sobre tus datos, escribe a {email}."
+				]
+			},
+			{
+				"title": "Este sitio",
+				"paragraphs": [
+					"jotaeme.dev no usa cookies, analítica ni formularios. Solo guarda en tu navegador (sessionStorage) una marca para no repetir la animación de carga, y esa marca nunca sale de tu equipo.",
+					"Cloudflare aloja el sitio y procesa datos técnicos, como tu dirección IP, para entregar las páginas y protegerlas."
+				]
+			},
+			{
+				"title": "Iniciar sesión con Google",
+				"paragraphs": [
+					"Algunas apps te piden entrar con tu cuenta de Google. De Google recibo solo tu correo electrónico y si está verificado (los permisos openid y email). Nunca recibo tu contraseña, tus contactos, tus archivos ni otros datos de tu cuenta."
+				]
+			},
+			{
+				"title": "Para qué los uso",
+				"paragraphs": [
+					"Tu correo sirve solo para identificarte y comprobar que tienes acceso a la app. No lo uso para publicidad, no lo vendo y no lo comparto con terceros, salvo con los proveedores que alojan el servicio (Cloudflare) o cuando la ley lo exija.",
+					"Los datos que manejas dentro de una app, como la información de un negocio, pertenecen a quien te dio acceso, y solo se usan para prestar el servicio.",
+					"El uso de la información recibida de las API de Google cumple la Política de datos de usuario de los servicios de API de Google, incluidos los requisitos de uso limitado."
+				],
+				"links": [
+					{ "label": "Política de datos de usuario de los servicios de API de Google", "href": "https://developers.google.com/terms/api-services-user-data-policy" }
+				]
+			},
+			{
+				"title": "Cuánto tiempo los guardo",
+				"paragraphs": [
+					"Una sesión termina después de máximo 30 días sin uso y entonces se borra. Las sesiones se guardan solo como una huella criptográfica (hash), nunca en claro.",
+					"Cada app registra los ingresos (correo y hora) por seguridad, y guarda esos registros solo mientras sirvan para ese fin. Si te quitan el acceso, tus sesiones dejan de funcionar de inmediato."
+				]
+			},
+			{
+				"title": "Tus derechos",
+				"paragraphs": [
+					"Según la Ley 1581 de 2012 de Colombia, puedes pedir conocer, actualizar, corregir o borrar tus datos, y revocar tu autorización. Escribe a {email}.",
+					"También puedes quitarle el acceso a una app en cualquier momento desde la configuración de tu cuenta de Google."
+				],
+				"links": [
+					{ "label": "Cuenta de Google: conexiones con terceros", "href": "https://myaccount.google.com/connections" }
+				]
+			},
+			{
+				"title": "Cambios",
+				"paragraphs": [
+					"Si esta política cambia, actualizo esta página y su fecha."
+				]
+			}
+		]
+	}
+}

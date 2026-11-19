@@ -43,6 +43,14 @@ export const ui = {
 			live: 'Open project',
 			repo: 'Source code',
 		},
+		privacy: {
+			meta: {
+				title: 'Privacy policy · jotaeme.dev',
+				description: 'Which data jotaeme.dev and the apps that use Sign in with Google receive, how they use it, and your rights.',
+			},
+			title: 'Privacy policy',
+			updated: 'Last updated:',
+		},
 	},
 	es: {
 		about: { id: 'sobre-mi', label: 'Sobre mí' },
@@ -86,6 +94,14 @@ export const ui = {
 			access: { public: 'Público', private: 'Privado · requiere login' },
 			live: 'Abrir proyecto',
 			repo: 'Código fuente',
+		},
+		privacy: {
+			meta: {
+				title: 'Política de privacidad · jotaeme.dev',
+				description: 'Qué datos reciben jotaeme.dev y las apps que usan Iniciar sesión con Google, para qué los usan y cuáles son tus derechos.',
+			},
+			title: 'Política de privacidad',
+			updated: 'Última actualización:',
 		},
 	},
 } as const;

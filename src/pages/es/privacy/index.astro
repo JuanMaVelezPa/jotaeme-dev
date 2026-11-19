@@ -1,0 +1,11 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Privacy from '../../../components/Privacy.astro';
+import { ui } from '../../../lib/i18n';
+
+const { meta } = ui.es.privacy;
+---
+
+<Base title={meta.title} description={meta.description} path="privacy/">
+	<Privacy />
+</Base>

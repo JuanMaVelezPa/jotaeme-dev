@@ -3,7 +3,7 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locales = ['en', 'es'] as const;
 // '' is the home; other pages use the same trailing-slash form as their canonical.
-const pages = ['', 'lab/'];
+const pages = ['', 'lab/', 'privacy/'];
 
 export const GET: APIRoute = ({ site }) => {
 	const lastmod = new Date().toISOString().slice(0, 10);
