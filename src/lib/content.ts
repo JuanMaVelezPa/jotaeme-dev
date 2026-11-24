@@ -2,7 +2,8 @@ import es from '../content/es.json';
 import en from '../content/en.json';
 import copy from '../content/copy.json';
 import labsData from '../content/labs.json';
-import projectsData from '../content/projects.json';
+import codeData from '../content/code.json';
+import appsData from '../content/apps.json';
 import privacyData from '../content/privacy.json';
 
 // es.json / en.json hold career facts (copied by hand from the branding repo).
@@ -59,16 +60,40 @@ type LabText = { title: string; summary: string; highlights: string[] };
 
 export const labs: Lab[] = (labsData as Lab[]).slice().sort((a, b) => a.order - b.order);
 
-export type ProjectItem = {
+// code.json and apps.json share this shape and are owned by this repo, like labs.json.
+// 'soon': listed in the Projects menu with a Soon tag, not shown on the category page.
+export type Project = {
 	id: string;
-	category: 'code' | 'apps';
-	name: string;
 	order: number;
-	// Empty for now: no links until the category page exists.
-	href?: string;
+	status: 'active' | 'soon';
+	tags?: ('client' | 'free' | 'paid' | 'production')[];
+	stack: string[];
+	links?: { kind: 'live' | 'repo' | 'docs' | 'metrics'; href: string }[];
+	images?: { src: string; width: number; height: number }[];
+	diagram?: 'mcp';
+	facts?: string[];
+	es: ProjectText;
+	en: ProjectText;
 };
 
-export const projects: ProjectItem[] = (projectsData as ProjectItem[]).slice().sort((a, b) => a.order - b.order);
+type ProjectText = {
+	title: string;
+	summary: string;
+	highlights: string[];
+	note?: string;
+	alts?: string[];
+	factLabels?: string[];
+	// Client-facing case (apps): when `asks` is present, the card leads with the outcome and
+	// keeps highlights, facts, stack and diagram under "Technical details".
+	how?: string;
+	asks?: string[];
+	trust?: string[];
+};
+
+const byOrder = (a: { order: number }, b: { order: number }) => a.order - b.order;
+
+export const code: Project[] = (codeData as Project[]).slice().sort(byOrder);
+export const apps: Project[] = (appsData as Project[]).slice().sort(byOrder);
 
 type PrivacySection = { title: string; paragraphs: string[]; links?: { label: string; href: string }[] };
 type PrivacyText = { intro: string; sections: PrivacySection[] };

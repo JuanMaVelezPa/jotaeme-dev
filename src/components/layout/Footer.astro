@@ -6,8 +6,8 @@ import { content, getLocale } from '../../lib/content';
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const network = [
-	{ name: 'code', color: 'var(--jm-code)' },
-	{ name: 'apps', color: 'var(--jm-apps)' },
+	{ name: 'code', color: 'var(--jm-code)', href: getRelativeLocaleUrl(locale, 'code/') },
+	{ name: 'apps', color: 'var(--jm-apps)', href: getRelativeLocaleUrl(locale, 'apps/') },
 	{ name: 'lab', color: 'var(--jm-lab)', href: getRelativeLocaleUrl(locale, 'lab/') },
 ];
 // The city part of the line is hidden on narrow screens so the footer stays at two lines.

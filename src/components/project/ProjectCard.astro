@@ -1,0 +1,765 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { ui } from '../../lib/i18n';
+import { getLocale, type Project } from '../../lib/content';
+import McpDiagram from '../ui/McpDiagram.astro';
+
+interface Props {
+	project: Project;
+	category: 'code' | 'apps';
+}
+
+const { project, category } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const t = ui[locale].project;
+const text = project[locale];
+const external = { target: '_blank', rel: 'noopener noreferrer' };
+// Repo-style names (kebab-case, like branch-hub) use the mono face; plain titles use the sans face.
+const repoName = /^[a-z0-9-]+$/.test(text.title);
+// A client-facing case leads with the outcome; its engineering detail goes under "Technical details".
+const caseStudy = Boolean(text.asks && text.asks.length > 0);
+const contact = `${getRelativeLocaleUrl(locale, '')}#${ui[locale].contact.id}`;
+const hasFacts = Boolean(project.facts && project.facts.length > 0);
+---
+
+<!--
+	Two columns from 1024 px.
+	Engineering card (code): summary, decisions and stack on the left; links, note and screenshots
+	on the right; a diagram band if any.
+	Client case (apps, has `asks`): outcome | what the owner asks for, then protections and the
+	contact button | screenshot; figures, decisions, stack and diagram inside a closed
+	"Technical details" section. One column below 1024 px, in reading order.
+-->
+<li id={project.id} class:list={['card', 'reveal', `cat-${category}`, { case: caseStudy }]}>
+	<div class="top">
+		<h2 class:list={{ repo: repoName }}>{text.title}</h2>
+		{
+			project.tags && project.tags.length > 0 && (
+				<ul class="tags">
+					{project.tags.map((tag) => (
+						<li data-tag={tag}>
+							<span class="tag-dot" aria-hidden="true" />
+							{t.tags[tag]}
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</div>
+	{
+		caseStudy ? (
+			<>
+				<div class="intro">
+					<p class="summary">{text.summary}</p>
+					{text.how && <p class="how">{text.how}</p>}
+				</div>
+				<div class="asks" role="group" aria-labelledby={`${project.id}-asks`}>
+					<h3 id={`${project.id}-asks`}>{t.asks}</h3>
+					<ul>
+						{text.asks?.map((item) => <li>{item}</li>)}
+					</ul>
+				</div>
+				<div class="trust" role="group" aria-labelledby={`${project.id}-trust`}>
+					{
+						text.trust && text.trust.length > 0 && (
+							<>
+								<h3 id={`${project.id}-trust`}>{t.trust}</h3>
+								<ul>
+									{text.trust.map((item) => <li>{item}</li>)}
+								</ul>
+							</>
+						)
+					}
+					<p class="cta">
+						<a class="button button-primary" href={contact}>{t.cta}</a>
+					</p>
+				</div>
+				<div class="shot">
+					{
+			project.images && project.images.length > 0 && (
+				<ul class:list={['gallery', { single: project.images.length === 1 }]} aria-label={t.gallery}>
+					{project.images.map((image, i) => (
+						<li>
+							<a href={image.src} {...external}>
+								<img
+									src={image.src}
+									width={image.width}
+									height={image.height}
+									alt={text.alts?.[i] ?? ''}
+									loading="lazy"
+									decoding="async"
+								/>
+							</a>
+						</li>
+					))}
+				</ul>
+			)
+		}
+				</div>
+			</>
+		) : (
+			<>
+				<div class="story">
+					<p class="summary">{text.summary}</p>
+					<ul class="highlights" aria-label={t.highlights}>
+						{text.highlights.map((item) => <li>{item}</li>)}
+					</ul>
+					<div class="stack">
+						<h3 id={`${project.id}-stack`}>{t.stack}</h3>
+						<ul aria-labelledby={`${project.id}-stack`}>
+							{project.stack.map((item) => <li>{item}</li>)}
+						</ul>
+					</div>
+				</div>
+				<div class="evidence">
+					{
+						project.links && project.links.length > 0 && (
+							<p class="links">
+								{project.links.map((link) => (
+									<a class:list={['button', { 'button-primary': link.kind === 'live' }]} href={link.href} {...external}>
+										{t.links[link.kind]}
+										<span aria-hidden="true">↗</span>
+									</a>
+								))}
+							</p>
+						)
+					}
+					{text.note && <p class="note">{text.note}</p>}
+					{
+						hasFacts && (
+							<dl class="facts" aria-label={t.facts}>
+								{project.facts?.map((fact, i) => (
+									<div>
+										<dt>{text.factLabels?.[i]}</dt>
+										<dd>{fact}</dd>
+									</div>
+								))}
+							</dl>
+						)
+					}
+					{
+			project.images && project.images.length > 0 && (
+				<ul class:list={['gallery', { single: project.images.length === 1 }]} aria-label={t.gallery}>
+					{project.images.map((image, i) => (
+						<li>
+							<a href={image.src} {...external}>
+								<img
+									src={image.src}
+									width={image.width}
+									height={image.height}
+									alt={text.alts?.[i] ?? ''}
+									loading="lazy"
+									decoding="async"
+								/>
+							</a>
+						</li>
+					))}
+				</ul>
+			)
+		}
+				</div>
+			</>
+		)
+	}
+	{
+		caseStudy ? (
+			<details class="tech band">
+				<summary>{t.technical}</summary>
+				<div class="tech-body">
+					<div class="tech-top">
+					<div class="tech-summary">
+						{
+							hasFacts && (
+								<dl class="facts" aria-label={t.facts}>
+									{project.facts?.map((fact, i) => (
+										<div>
+											<dt>{text.factLabels?.[i]}</dt>
+											<dd>{fact}</dd>
+										</div>
+									))}
+								</dl>
+							)
+						}
+						<div class="stack">
+							<h3 id={`${project.id}-stack`}>{t.stack}</h3>
+							<ul aria-labelledby={`${project.id}-stack`}>
+								{project.stack.map((item) => <li>{item}</li>)}
+							</ul>
+						</div>
+					</div>
+					{project.diagram === 'mcp' && <McpDiagram />}
+					</div>
+					<ul class="highlights decisions" aria-label={t.highlights}>
+						{text.highlights.map((item) => <li>{item}</li>)}
+					</ul>
+				</div>
+			</details>
+		) : (
+			project.diagram === 'mcp' && (
+				<div class="band">
+					<McpDiagram />
+				</div>
+			)
+		)
+	}
+</li>
+
+<style>
+	.card {
+		--cat: var(--jm-bone);
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2rem;
+		min-width: 0;
+		margin: 0;
+		padding: 2.5rem;
+		border: 1px solid var(--jm-border);
+		border-radius: 22px;
+		background: var(--jm-surface-2);
+	}
+
+	.cat-code { --cat: var(--jm-code); }
+	.cat-apps { --cat: var(--jm-apps); }
+
+	@media (min-width: 1024px) {
+		.card {
+			grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+			gap: 2rem 4rem;
+		}
+
+		.top,
+		.band {
+			grid-column: 1 / -1;
+		}
+
+		.case {
+			grid-template-areas:
+				'top top'
+				'intro asks'
+				'trust shot'
+				'tech tech';
+			align-items: start;
+		}
+
+		.case .top { grid-area: top; }
+		.case .intro { grid-area: intro; }
+		.case .asks { grid-area: asks; }
+		.case .trust { grid-area: trust; }
+		.case .shot { grid-area: shot; }
+		.case .tech { grid-area: tech; }
+	}
+
+	.intro,
+	.trust {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+		min-width: 0;
+	}
+
+	.top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem 1rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--jm-border);
+	}
+
+	h2 {
+		margin: 0;
+		font-family: var(--jm-font-sans);
+		font-size: clamp(26px, 3vw, 36px);
+		font-weight: 800;
+		letter-spacing: -0.03em;
+		line-height: 1.1;
+		overflow-wrap: anywhere;
+	}
+
+	h2.repo {
+		font-family: var(--jm-font-mono);
+		letter-spacing: -0.04em;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tags li {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin: 0;
+		padding: 6px 12px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-pill);
+		font-size: 12px;
+		line-height: 1.4;
+		color: var(--jm-muted);
+	}
+
+	.tag-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--cat);
+	}
+
+	/* Left column: what it is, then the decisions. */
+	.story,
+	.evidence {
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+		min-width: 0;
+	}
+
+	.summary {
+		max-width: 62ch;
+		margin: 0;
+		font-size: 18px;
+		line-height: 1.6;
+		color: var(--jm-bone);
+	}
+
+	.highlights {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		max-width: 66ch;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.highlights li {
+		position: relative;
+		margin: 0;
+		padding-left: 1.1rem;
+		font-size: 15px;
+		line-height: 1.65;
+		color: var(--jm-muted);
+	}
+
+	.highlights li::before {
+		content: '';
+		position: absolute;
+		inset: 0.25em auto 0.25em 0;
+		width: 2px;
+		background: color-mix(in srgb, var(--cat), transparent 35%);
+		transform-origin: top;
+	}
+
+	@keyframes jm-draw {
+		from {
+			transform: scaleY(0);
+		}
+		to {
+			transform: none;
+		}
+	}
+
+	/* The rule next to each highlight draws itself as the card scrolls into view. */
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: view()) {
+			:global(.js) .highlights li::before {
+				animation: jm-draw linear both;
+				animation-timeline: view();
+				animation-range: entry 30% cover 38%;
+			}
+		}
+	}
+
+	/* Right column: the way in first, then the proof. */
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+	}
+
+	.links .button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-height: 44px;
+		padding: 0 1.1rem;
+		font-size: 14px;
+	}
+
+	.links .button:not(.button-primary):hover,
+	.links .button:not(.button-primary):active {
+		border-color: var(--cat);
+	}
+
+	.note {
+		margin: 0;
+		padding-left: 1rem;
+		border-left: 2px solid var(--cat);
+		font-size: 14px;
+		line-height: 1.6;
+		color: var(--jm-muted);
+	}
+
+	/* The one loud element of a case: its figures, set as type, not boxes. */
+	.facts {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem 3rem;
+		margin: 0;
+	}
+
+	.facts div {
+		display: flex;
+		flex-direction: column-reverse;
+		gap: 0.4rem;
+	}
+
+	.facts dd {
+		margin: 0;
+		font-family: var(--jm-font-mono);
+		font-size: clamp(56px, 7vw, 80px);
+		font-weight: 800;
+		letter-spacing: -0.06em;
+		line-height: 0.9;
+		color: var(--cat);
+	}
+
+	.facts dt {
+		font-size: 14px;
+		color: var(--jm-muted);
+	}
+
+	/* Thumbnails, two per row; each opens the full image. */
+	.gallery {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.gallery li {
+		margin: 0;
+	}
+
+	.gallery a {
+		display: block;
+		overflow: hidden;
+		border: 1px solid var(--jm-border);
+		border-radius: var(--jm-radius-sm);
+		background: var(--jm-surface);
+	}
+
+	.gallery a:hover,
+	.gallery a:focus-visible {
+		border-color: var(--cat);
+	}
+
+	/* One screenshot fills the column, about the footprint of a 2 × 2 grid. */
+	.gallery.single {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.gallery img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	/* Stack: chips; each one lifts and takes the category color on hover. */
+	.stack {
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--jm-border);
+	}
+
+	.stack h3 {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--jm-muted);
+	}
+
+	.stack ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.stack li {
+		margin: 0;
+		padding: 5px 11px;
+		border: 1px solid var(--jm-border-strong);
+		border-radius: var(--jm-radius-sm);
+		font-family: var(--jm-font-mono);
+		font-size: 13px;
+		line-height: 1.5;
+		color: var(--jm-muted);
+		transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+	}
+
+	@media (hover: hover) {
+		.stack li:hover {
+			transform: translateY(-2px);
+			border-color: var(--cat);
+			color: var(--jm-bone);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.stack li {
+			transition: none;
+		}
+
+		.stack li:hover {
+			transform: none;
+		}
+	}
+
+	/* Diagram band: across both columns, aligned with the content, not centered. */
+	.band {
+		padding-top: 2rem;
+		border-top: 1px solid var(--jm-border);
+	}
+
+	.band :global(.mcp-diagram) {
+		max-width: 760px;
+	}
+
+	/* Client case: the outcome first, in large type. */
+	.case .summary {
+		max-width: 34ch;
+		font-size: clamp(22px, 2.4vw, 28px);
+		font-weight: 600;
+		letter-spacing: -0.015em;
+		line-height: 1.35;
+	}
+
+	.how {
+		max-width: 60ch;
+		margin: 0;
+		font-size: 16px;
+		line-height: 1.65;
+		color: var(--jm-muted);
+	}
+
+	.asks {
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+		min-width: 0;
+	}
+
+	.asks h3,
+	.trust h3 {
+		margin: 0;
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--jm-muted);
+	}
+
+	/* The memorable element: what the owner asks for, set as chat messages. */
+	.asks ul {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.55rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.asks li {
+		max-width: 100%;
+		margin: 0;
+		padding: 0.7rem 1.05rem;
+		border: 1px solid color-mix(in srgb, var(--cat), transparent 65%);
+		border-radius: 18px 18px 18px 4px;
+		background: color-mix(in srgb, var(--cat), transparent 90%);
+		font-size: 15px;
+		line-height: 1.45;
+		color: var(--jm-bone);
+	}
+
+	.trust ul {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.trust li {
+		position: relative;
+		margin: 0;
+		padding-left: 1.6rem;
+		font-size: 15px;
+		line-height: 1.55;
+		color: var(--jm-bone);
+	}
+
+	/* A check mark drawn with borders, in the category color. */
+	.trust li::before {
+		content: '';
+		position: absolute;
+		top: 0.3em;
+		left: 0.2rem;
+		width: 0.4rem;
+		height: 0.75rem;
+		border: solid var(--cat);
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+	}
+
+	.cta {
+		margin: 0.25rem 0 0;
+	}
+
+	.cta .button {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0.7rem 1.3rem;
+		font-size: 15px;
+		line-height: 1.3;
+	}
+
+	/* Technical details: closed by default, native <details>, works without JavaScript. */
+	.tech {
+		padding-top: 0;
+	}
+
+	.tech summary {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		min-height: 44px;
+		padding-top: 1.25rem;
+		cursor: pointer;
+		font-size: 15px;
+		font-weight: 600;
+		color: var(--jm-bone);
+		list-style: none;
+	}
+
+	.tech summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.tech summary::before {
+		content: '';
+		width: 0.45rem;
+		height: 0.45rem;
+		border: solid var(--cat);
+		border-width: 0 2px 2px 0;
+		transform: rotate(-45deg);
+		transition: transform var(--jm-dur-fast) var(--jm-ease);
+	}
+
+	.tech[open] summary::before {
+		transform: rotate(45deg);
+	}
+
+	.tech summary:hover {
+		color: var(--jm-accent);
+	}
+
+	/* Technical details, in scan order: figures and stack, then the picture, then the decisions. */
+	.tech-body {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		padding-top: 1.75rem;
+	}
+
+	@keyframes tech-in {
+		from {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.tech[open] .tech-body {
+			animation: tech-in var(--jm-dur-fast) var(--jm-ease);
+		}
+	}
+
+	/* Figures and stack on the left, the compact diagram on the right (stacked below 1024 px). */
+	.tech-top {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2rem;
+		align-items: start;
+	}
+
+	@media (min-width: 1024px) {
+		.tech-top {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 600px);
+			gap: 2rem 4rem;
+		}
+	}
+
+	.tech-summary {
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+	}
+
+	.tech-summary .facts dd {
+		font-size: clamp(40px, 5vw, 56px);
+	}
+
+	/* Inside the summary the stack follows the figures, without its own rule. */
+	.tech-summary .stack {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.tech-body :global(.mcp-diagram) {
+		max-width: 600px;
+	}
+
+	/* The decisions as a two-column grid from 768 px: easier to scan than one long list. */
+	.decisions {
+		max-width: none;
+	}
+
+	@media (min-width: 768px) {
+		.decisions {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1.25rem 2.5rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tech summary::before {
+			transition: none;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.card {
+			padding: 1.5rem 1.25rem;
+		}
+
+		.summary {
+			font-size: 17px;
+		}
+	}
+</style>

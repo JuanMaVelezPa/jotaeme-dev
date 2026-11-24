@@ -1,0 +1,96 @@
+[
+	{
+		"id": "workshop-mcp",
+		"order": 1,
+		"status": "active",
+		"tags": [
+			"client",
+			"production"
+		],
+		"stack": [
+			"Python",
+			"MCP",
+			"OAuth 2.1",
+			"PostgreSQL",
+			"Google Sign-In",
+			"Google Drive API",
+			"Cloudflare Tunnel"
+		],
+		"images": [
+			{
+				"src": "/images/apps/workshop-mcp/cuadre.webp",
+				"width": 1200,
+				"height": 705
+			}
+		],
+		"diagram": "mcp",
+		"facts": [
+			"11",
+			"3"
+		],
+		"es": {
+			"title": "Claude como analista del negocio",
+			"summary": "Conecté los datos de un taller automotriz en Medellín con Claude. Ahora el dueño tiene un analista que conoce sus ventas, su caja y su inventario, y le responde con cifras reales.",
+			"how": "El servidor MCP conecta a Claude con Siigo, los reportes de Aliaddo y Google Drive, con acceso seguro. Claude hace el resto: analiza, compara y entrega el informe, la presentación o el tablero.",
+			"asks": [
+				"¿Cuánto vendimos esta semana y por qué medio de pago?",
+				"¿Qué repuestos nos dejan más margen?",
+				"Hazme un Excel con las ventas de octubre por negocio.",
+				"Arma una presentación con el cierre del mes.",
+				"Crea un tablero con la caja de los últimos 8 días."
+			],
+			"trust": [
+				"Solo entran los correos que el negocio autoriza.",
+				"Claude consulta con permiso de solo lectura: no borra ni cambia cifras, solo guarda notas del cuadre.",
+				"Cada consulta queda registrada."
+			],
+			"highlights": [
+				"El servidor es su propio servidor de autorización OAuth 2.1: PKCE, registro dinámico de clientes e inicio de sesión con Google. Los tokens se guardan como SHA-256.",
+				"Cada consulta corre con un rol de PostgreSQL de solo lectura, y cada llamada a una herramienta queda en un log de auditoría.",
+				"Carga cada día los datos de la API de Siigo y los reportes Excel de Aliaddo, que llegan por la API de Google Drive, a PostgreSQL en tres capas: datos crudos, tablas normalizadas y vistas de reportes.",
+				"11 herramientas: ocho de lectura, una de carga y dos que escriben con SQL fijo, sin SQL libre del modelo.",
+				"Una página web para el cuadre de caja diario, con su propia sesión de Google.",
+				"En producción desde noviembre de 2026, detrás de Cloudflare Tunnel."
+			],
+			"factLabels": [
+				"herramientas",
+				"sistemas conectados"
+			],
+			"alts": [
+				"Página del cuadre de caja con datos de ejemplo: ventas del día por medio de pago y su total."
+			]
+		},
+		"en": {
+			"title": "Claude as the business analyst",
+			"summary": "I connected the data of an auto-repair business in Medellín to Claude. Now the owner has an analyst that knows the sales, the cash, and the inventory, and answers with real figures.",
+			"how": "The MCP server connects Claude to Siigo, the Aliaddo reports, and Google Drive, with safe access. Claude does the rest: it analyzes, compares, and delivers the report, the deck, or the dashboard.",
+			"asks": [
+				"How much did we sell this week, and by which payment method?",
+				"Which parts give us the best margin?",
+				"Make me an Excel file with October sales by business.",
+				"Build a deck with the month's closing.",
+				"Create a dashboard with the cash of the last 8 days."
+			],
+			"trust": [
+				"Only the emails the business approves can sign in.",
+				"Claude queries with read-only access: it cannot delete or change figures, it only saves cash-closing notes.",
+				"Every query is logged."
+			],
+			"highlights": [
+				"The server is its own OAuth 2.1 authorization server: PKCE, dynamic client registration, and Google sign-in. Tokens are stored as SHA-256 hashes.",
+				"Every query runs through a read-only PostgreSQL role, and every tool call goes to an audit log.",
+				"Every day it loads data from the Siigo API and the Aliaddo Excel reports, which arrive through the Google Drive API, into PostgreSQL in three layers: raw records, normalized tables, and report views.",
+				"11 tools: eight read data, one loads it, and two write with fixed SQL, never free SQL from the model.",
+				"A web page for the daily cash closing, with its own Google session.",
+				"In production since November 2026, behind Cloudflare Tunnel."
+			],
+			"factLabels": [
+				"tools",
+				"connected systems"
+			],
+			"alts": [
+				"Cash-closing page with sample data: the day's sales by payment method and their total."
+			]
+		}
+	}
+]

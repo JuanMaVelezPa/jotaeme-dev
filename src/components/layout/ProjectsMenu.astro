@@ -1,7 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { ui } from '../../lib/i18n';
-import { content, getLocale, labs, projects } from '../../lib/content';
+import { apps, code, content, getLocale, labs, type Project } from '../../lib/content';
 
 interface Props {
 	id: string;
@@ -12,15 +12,27 @@ const { id, home } = Astro.props;
 const locale = getLocale(Astro.currentLocale);
 const t = ui[locale];
 const titles = Object.fromEntries(content[locale].ecosistema.tarjetas.map((card) => [card.id, card.titulo]));
-const labPage = getRelativeLocaleUrl(locale, 'lab/');
+const pageOf = (category: 'code' | 'apps' | 'lab') => getRelativeLocaleUrl(locale, `${category}/`);
+
+// Code and Apps items: an active entry links to its category page; a 'soon' entry shows a Soon tag
+// and has no link.
+const toItems = (list: Project[], page: string) =>
+	list.map((p) => ({
+		name: p[locale].title,
+		href: p.status === 'active' ? page : undefined,
+		external: false,
+		soon: p.status === 'soon',
+	}));
 
 // One markup for both layouts: a full-width panel on desktop, an accordion body on mobile.
+// Each column ends with a "See all" link to its page. Lab items open their own subdomain.
 const columns = [
-	{ id: 'code', items: projects.filter((p) => p.category === 'code').map((p) => ({ name: p.name, href: p.href })) },
-	{ id: 'apps', items: projects.filter((p) => p.category === 'apps').map((p) => ({ name: p.name, href: p.href })) },
+	{ id: 'code', page: pageOf('code'), items: toItems(code, pageOf('code')) },
+	{ id: 'apps', page: pageOf('apps'), items: toItems(apps, pageOf('apps')) },
 	{
 		id: 'lab',
-		items: labs.map((lab) => ({ name: lab[locale].title, href: lab.live, status: lab.status })),
+		page: pageOf('lab'),
+		items: labs.map((lab) => ({ name: lab[locale].title, href: lab.live, external: true, status: lab.status })),
 	},
 ];
 ---
@@ -42,15 +54,21 @@ const columns = [
 								const inner = (
 									<>
 										{'status' in item && <span class="dot" data-status={item.status} aria-hidden="true" />}
-										<span class="name">{item.name}</span>
+										<span class:list={['name', { plain: !/^[a-z0-9-]+$/.test(item.name) }]}>{item.name}</span>
 										{'status' in item && <span class="sr-only"> · {t.lab.status[item.status]}</span>}
-										{col.id === 'code' && !item.href && <span class="tag">{t.projectsMenu.soon}</span>}
+										{'soon' in item && item.soon && <span class="tag">{t.projectsMenu.soon}</span>}
 									</>
 								);
 								return (
 									<li>
 										{item.href ? (
-											<a class="item" href={item.href} target="_blank" rel="noopener noreferrer">{inner}</a>
+											<a
+												class="item"
+												href={item.href}
+												{...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+											>
+												{inner}
+											</a>
 										) : (
 											<span class="item">{inner}</span>
 										)}
@@ -58,9 +76,7 @@ const columns = [
 								);
 							})}
 						</ul>
-						{col.id === 'lab' && (
-							<a class="more" href={labPage}>{t.projectsMenu.seeAll} {titles.lab} →</a>
-						)}
+						<a class="more" href={col.page}>{t.projectsMenu.seeAll} {titles[col.id]} →</a>
 					</div>
 				))
 			}
@@ -142,6 +158,11 @@ const columns = [
 	.name {
 		font-family: var(--jm-font-mono);
 		font-size: 15px;
+	}
+
+	/* Repo-style names (kebab-case) keep the mono face; plain titles use the sans face. */
+	.name.plain {
+		font-family: var(--jm-font-sans);
 	}
 
 	.tag {

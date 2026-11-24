@@ -1,6 +1,6 @@
 # SPEC 06 — Privacy policy page
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 03 (Implemented), SPEC 04 (Implemented)
 > **Date:** 2026-11-19
 > **Objective:** Publish a bilingual privacy policy at `/privacy` and `/es/privacy` that covers this site and every app on a `jotaeme.dev` subdomain that uses "Sign in with Google", so the shared Google Cloud project can be published.

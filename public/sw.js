@@ -1,5 +1,5 @@
 // Bump the suffix to invalidate old caches on a content release.
-const CACHE = 'jm-shell-v4';
+const CACHE = 'jm-shell-v5';
 
 const PRECACHE = [
 	'/',

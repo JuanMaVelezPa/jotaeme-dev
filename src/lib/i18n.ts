@@ -43,6 +43,51 @@ export const ui = {
 			live: 'Open project',
 			repo: 'Source code',
 		},
+		code: {
+			meta: {
+				title: 'Code · Juan Manuel Vélez Parra',
+				description: 'Backend projects by Juan Manuel Vélez Parra: Branch Hub, with Spring Boot 4, Java 25, Kafka, and Angular, with a public demo and the code on GitHub.',
+			},
+			title: 'Code',
+			intro: 'Backend projects built like production systems. Each one has a demo, API docs, and the code on GitHub.',
+			list: 'Code projects',
+		},
+		apps: {
+			meta: {
+				title: 'Apps · Juan Manuel Vélez Parra',
+				description: "Juan Manuel Vélez Parra connects a business's data to Claude: an MCP server in production with Siigo, Google Drive, OAuth 2.1, and read-only access.",
+			},
+			title: 'Apps',
+			intro: "Apps I build for real businesses. They connect the business's data to Claude, so the owner can ask questions and get reports with real figures.",
+			list: 'Apps',
+		},
+		// Shared by the /code and /apps cards.
+		project: {
+			stack: 'Stack',
+			highlights: 'Highlights',
+			links: { live: 'Live demo', repo: 'Source code', docs: 'API docs', metrics: 'Grafana' },
+			tags: { client: 'Client', free: 'Free', paid: 'Paid', production: 'In production' },
+			facts: 'Technical figures',
+			gallery: 'Screenshots',
+			asks: 'What the owner asks for',
+			trust: 'The data stays protected',
+			cta: "Want an analyst like this for your company's data? Let's talk",
+			technical: 'Technical details',
+			diagram: {
+				title: 'MCP server architecture',
+				desc: 'claude.ai connects through Cloudflare Tunnel to the MCP server, which signs users in with Google and queries PostgreSQL. PostgreSQL is loaded from the Siigo API and from the Aliaddo Excel reports, which arrive through Google Drive.',
+				labels: {
+					claude: 'claude.ai',
+					tunnel: 'Cloudflare Tunnel',
+					server: 'MCP server',
+					google: 'Google sign-in',
+					db: 'PostgreSQL (read-only)',
+					siigo: 'Siigo API',
+					aliaddo: 'Aliaddo Excel',
+					drive: 'Google Drive',
+				},
+			},
+		},
 		privacy: {
 			meta: {
 				title: 'Privacy policy · jotaeme.dev',
@@ -94,6 +139,51 @@ export const ui = {
 			access: { public: 'Público', private: 'Privado · requiere login' },
 			live: 'Abrir proyecto',
 			repo: 'Código fuente',
+		},
+		code: {
+			meta: {
+				title: 'Code · Juan Manuel Vélez Parra',
+				description: 'Proyectos backend de Juan Manuel Vélez Parra: Branch Hub, con Spring Boot 4, Java 25, Kafka y Angular, con demo pública y código en GitHub.',
+			},
+			title: 'Code',
+			intro: 'Proyectos backend hechos como en producción. Cada uno tiene demo, documentación de la API y código en GitHub.',
+			list: 'Proyectos de código',
+		},
+		apps: {
+			meta: {
+				title: 'Apps · Juan Manuel Vélez Parra',
+				description: 'Juan Manuel Vélez Parra conecta los datos de un negocio con Claude: un servidor MCP en producción con Siigo, Google Drive, OAuth 2.1 y acceso de solo lectura.',
+			},
+			title: 'Apps',
+			intro: 'Apps que construyo para negocios reales. Conectan sus datos con Claude para que el dueño pregunte y reciba informes con sus propias cifras.',
+			list: 'Apps',
+		},
+		// Shared by the /code and /apps cards.
+		project: {
+			stack: 'Stack',
+			highlights: 'Destacados',
+			links: { live: 'Demo en vivo', repo: 'Código fuente', docs: 'Docs de la API', metrics: 'Grafana' },
+			tags: { client: 'Cliente', free: 'Gratis', paid: 'De pago', production: 'En producción' },
+			facts: 'Cifras técnicas',
+			gallery: 'Capturas de pantalla',
+			asks: 'Lo que el dueño le pide',
+			trust: 'Sus datos, protegidos',
+			cta: '¿Quieres un analista así con los datos de tu empresa? Hablemos',
+			technical: 'Detalles técnicos',
+			diagram: {
+				title: 'Arquitectura del servidor MCP',
+				desc: 'claude.ai se conecta por Cloudflare Tunnel al servidor MCP, que autentica con Google y consulta PostgreSQL. PostgreSQL se carga desde la API de Siigo y desde los reportes Excel de Aliaddo, que llegan por Google Drive.',
+				labels: {
+					claude: 'claude.ai',
+					tunnel: 'Cloudflare Tunnel',
+					server: 'Servidor MCP',
+					google: 'Inicio de sesión con Google',
+					db: 'PostgreSQL (solo lectura)',
+					siigo: 'API de Siigo',
+					aliaddo: 'Excel de Aliaddo',
+					drive: 'Google Drive',
+				},
+			},
 		},
 		privacy: {
 			meta: {

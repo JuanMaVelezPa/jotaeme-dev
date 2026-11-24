@@ -1,0 +1,218 @@
+---
+import { ui } from '../../lib/i18n';
+import { getLocale } from '../../lib/content';
+
+// Architecture of the MCP app as inline SVG: tokens only, generic labels, translated title and desc.
+// Two drawings of the same graph: a wide one and a narrow one, picked by the width of the column. Only one is displayed,
+// so assistive tech reads one title and one desc.
+const locale = getLocale(Astro.currentLocale);
+const d = ui[locale].project.diagram;
+const l = d.labels;
+
+type Box = { key: keyof typeof l; x: number; y: number; w: number; h: number; main?: boolean; source?: boolean };
+
+// Splits a label that does not fit in `max` characters into two balanced lines, at a word boundary.
+function wrap(label: string, max: number): string[] {
+	const words = label.split(' ');
+	if (label.length <= max || words.length < 2) return [label];
+	let best = [label];
+	let bestLongest = Infinity;
+	for (let i = 1; i < words.length; i++) {
+		const lines = [words.slice(0, i).join(' '), words.slice(i).join(' ')];
+		const longest = Math.max(...lines.map((line) => line.length));
+		if (longest < bestLongest) {
+			best = lines;
+			bestLongest = longest;
+		}
+	}
+	return best;
+}
+
+const layouts = [
+	{
+		id: 'wide',
+		viewBox: '0 0 703 252',
+		boxes: [
+			{ key: 'claude', x: 1, y: 100, w: 110, h: 48 },
+			{ key: 'tunnel', x: 139, y: 100, w: 150, h: 48 },
+			{ key: 'server', x: 317, y: 94, w: 150, h: 60, main: true },
+			{ key: 'db', x: 495, y: 100, w: 206, h: 48 },
+			{ key: 'google', x: 292, y: 10, w: 200, h: 44 },
+			{ key: 'aliaddo', x: 330, y: 200, w: 120, h: 48, source: true },
+			{ key: 'drive', x: 480, y: 200, w: 110, h: 48, source: true },
+			{ key: 'siigo', x: 594, y: 200, w: 108, h: 48, source: true },
+		] as Box[],
+		arrows: [
+			[111, 124, 137, 124],
+			[289, 124, 315, 124],
+			[467, 124, 493, 124],
+			[450, 224, 478, 224],
+			[535, 200, 535, 150],
+			[648, 200, 648, 150],
+		],
+		lines: [[392, 54, 392, 94]],
+	},
+	{
+		id: 'narrow',
+		viewBox: '0 0 360 500',
+		boxes: [
+			{ key: 'claude', x: 10, y: 10, w: 180, h: 48 },
+			{ key: 'tunnel', x: 10, y: 92, w: 180, h: 48 },
+			{ key: 'server', x: 10, y: 174, w: 180, h: 56, main: true },
+			{ key: 'google', x: 210, y: 174, w: 140, h: 56 },
+			{ key: 'db', x: 10, y: 264, w: 340, h: 48 },
+			{ key: 'drive', x: 10, y: 362, w: 165, h: 48, source: true },
+			{ key: 'siigo', x: 185, y: 362, w: 165, h: 48, source: true },
+			{ key: 'aliaddo', x: 10, y: 444, w: 165, h: 48, source: true },
+		] as Box[],
+		arrows: [
+			[100, 58, 100, 90],
+			[100, 140, 100, 172],
+			[100, 230, 100, 262],
+			[92, 362, 92, 314],
+			[267, 362, 267, 314],
+			[92, 444, 92, 412],
+		],
+		lines: [[190, 202, 210, 202]],
+	},
+];
+---
+
+<figure class="mcp-diagram">
+	<!-- Visible caption; the SVG carries the same title for assistive tech, so this one is hidden from it. -->
+	<figcaption aria-hidden="true">{d.title}</figcaption>
+	{
+		layouts.map((layout) => {
+			const titleId = `mcp-${layout.id}-title`;
+			const descId = `mcp-${layout.id}-desc`;
+			const marker = `mcp-${layout.id}-arrow`;
+			return (
+				<svg
+					class={`mcp-${layout.id}`}
+					viewBox={layout.viewBox}
+					role="img"
+					aria-labelledby={titleId}
+					aria-describedby={descId}
+				>
+					<title id={titleId}>{d.title}</title>
+					<desc id={descId}>{d.desc}</desc>
+					<defs>
+						<marker id={marker} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+							<path class="head" d="M0 0 L10 5 L0 10 z" />
+						</marker>
+					</defs>
+					{layout.lines.map(([x1, y1, x2, y2]) => (
+						<line class="link dashed" x1={x1} y1={y1} x2={x2} y2={y2} />
+					))}
+					{layout.arrows.map(([x1, y1, x2, y2]) => (
+						<line class="link" x1={x1} y1={y1} x2={x2} y2={y2} marker-end={`url(#${marker})`} />
+					))}
+					{layout.boxes.map((box) => {
+						const lines = wrap(l[box.key], Math.floor((box.w - 20) / (layout.id === 'wide' ? 7.1 : 6.6)));
+						const cx = box.x + box.w / 2;
+						const top = box.y + box.h / 2 - ((lines.length - 1) * 16) / 2;
+						return (
+							<g class:list={['node', { main: box.main, source: box.source }]}>
+								<rect x={box.x} y={box.y} width={box.w} height={box.h} rx="10" />
+								<text x={cx} y={top} text-anchor="middle" dominant-baseline="central">
+									{lines.map((line, i) => (
+										<tspan x={cx} dy={i === 0 ? 0 : 16}>{line}</tspan>
+									))}
+								</text>
+							</g>
+						);
+					})}
+				</svg>
+			);
+		})
+	}
+</figure>
+
+<style>
+	/* Sized by its column: the wide drawing when there is room, the vertical one when not.
+	   No frame: the boxes and arrows carry it. */
+	.mcp-diagram {
+		container-type: inline-size;
+		box-sizing: border-box;
+		width: 100%;
+		margin: 0;
+	}
+
+	figcaption {
+		margin: 0 0 1rem;
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--jm-muted);
+	}
+
+	svg {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.mcp-narrow {
+		display: none;
+		max-width: 340px;
+		margin: 0 auto;
+	}
+
+	@container (max-width: 520px) {
+		.mcp-wide {
+			display: none;
+		}
+
+		.mcp-narrow {
+			display: block;
+		}
+
+		.mcp-narrow .node text {
+			font-size: 14px;
+		}
+	}
+
+	.node rect {
+		fill: var(--jm-surface);
+		stroke: var(--jm-border-strong);
+		stroke-width: 1;
+	}
+
+	.node text {
+		fill: var(--jm-bone);
+		font-family: var(--jm-font-sans);
+		font-size: 14px;
+	}
+
+	.node.main rect {
+		stroke: var(--jm-apps);
+		stroke-width: 1.5;
+	}
+
+	.node.main text {
+		fill: var(--jm-apps);
+		font-family: var(--jm-font-mono);
+		font-weight: 600;
+	}
+
+	.node.source rect {
+		fill: transparent;
+		stroke-dasharray: 4 4;
+	}
+
+	.node.source text {
+		fill: var(--jm-muted);
+	}
+
+	.link {
+		stroke: var(--jm-dim);
+		stroke-width: 1.5;
+	}
+
+	.link.dashed {
+		stroke-dasharray: 4 4;
+	}
+
+	.head {
+		fill: var(--jm-dim);
+	}
+</style>
