@@ -1,0 +1,82 @@
+[
+	{
+		"id": "branch-hub",
+		"order": 1,
+		"status": "active",
+		"stack": [
+			"Java 25",
+			"Spring Boot 4",
+			"PostgreSQL",
+			"Kafka",
+			"Flyway",
+			"Testcontainers",
+			"Angular 21",
+			"Prometheus",
+			"Grafana"
+		],
+		"links": [
+			{ "kind": "live", "href": "https://code-branchhub.jotaeme.dev" },
+			{ "kind": "repo", "href": "https://github.com/JuanMaVelezPa/branch-hub" },
+			{ "kind": "docs", "href": "https://code-branchhub.jotaeme.dev/swagger-ui.html" },
+			{ "kind": "metrics", "href": "https://code-branchhub-grafana.jotaeme.dev" }
+		],
+		"images": [
+			{ "src": "/images/code/branch-hub/login.webp", "width": 1440, "height": 900 },
+			{ "src": "/images/code/branch-hub/dashboard.webp", "width": 1440, "height": 900 },
+			{ "src": "/images/code/branch-hub/branches.webp", "width": 1440, "height": 900 },
+			{ "src": "/images/code/branch-hub/grafana.webp", "width": 1440, "height": 900 }
+		],
+		"es": {
+			"title": "branch-hub",
+			"summary": "App full stack para gestionar las sucursales de una empresa, hecha como un sistema de producción: Spring Boot 4 con Java 25 y Angular 21.",
+			"highlights": [
+				"Clean Architecture en la API: los casos de uso no dependen de Spring Data ni de tipos web.",
+				"Seguridad por defecto: JWT de vida corta solo en memoria, cookie de refresco HttpOnly, roles, bloqueo de cuenta y log de auditoría.",
+				"Outbox transaccional hacia Kafka, con un consumidor idempotente, reintentos y dead-letter topic.",
+				"Observable de punta a punta: logs JSON con id de transacción, métricas con Micrometer, dashboard en Grafana y alertas con Alertmanager.",
+				"Pruebas en cada nivel: unitarias, de integración con Testcontainers sobre PostgreSQL, Vitest en la SPA y Playwright de punta a punta."
+			],
+			"note": "La demo tiene una cuenta pública con rol APP_ADMIN. Los datos son de ejemplo y se reinician cada sábado a las 10:00 (hora de Colombia).",
+			"alts": [
+				"Página de inicio de sesión de Branch Hub, con el dibujo de un mapa de rutas.",
+				"Dashboard con el total de sucursales y usuarios, y la actividad reciente.",
+				"Lista paginada de sucursales con código, nombre, ciudad y estado.",
+				"Dashboard de Grafana con logins, comandos, duración de casos de uso y el outbox."
+			]
+		},
+		"en": {
+			"title": "branch-hub",
+			"summary": "A full-stack app to manage a company's branches, built like a production system: Spring Boot 4 on Java 25 and Angular 21.",
+			"highlights": [
+				"Clean Architecture in the API: the use cases do not depend on Spring Data or web types.",
+				"Secure by default: a short-lived JWT kept only in memory, an HttpOnly refresh cookie, roles, account lockout, and an audit log.",
+				"A transactional outbox to Kafka, with an idempotent consumer, retries, and a dead-letter topic.",
+				"Observable end to end: JSON logs with a transaction id, Micrometer metrics, a Grafana dashboard, and Alertmanager alerts.",
+				"Tested at every level: unit tests, Testcontainers integration tests on PostgreSQL, Vitest for the SPA, and Playwright end-to-end tests."
+			],
+			"note": "The demo has a public account with the APP_ADMIN role. The data is sample data and resets every Saturday at 10:00 (Colombia time).",
+			"alts": [
+				"Branch Hub sign-in page, with a route-map drawing.",
+				"Dashboard with the branch and user totals and the recent activity.",
+				"Paged branch list with code, name, city, and status.",
+				"Grafana dashboard with logins, commands, use case duration, and the outbox."
+			]
+		}
+	},
+	{
+		"id": "devsu-microservicios",
+		"order": 2,
+		"status": "soon",
+		"stack": [],
+		"es": {
+			"title": "devsu-microservicios",
+			"summary": "",
+			"highlights": []
+		},
+		"en": {
+			"title": "devsu-microservicios",
+			"summary": "",
+			"highlights": []
+		}
+	}
+]

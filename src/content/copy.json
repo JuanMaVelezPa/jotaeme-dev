@@ -28,6 +28,10 @@
       {
         "titulo": "Automatización de procesos y reportes",
         "descripcion": "Automatizo procesos y reportes con Python y Power BI. Menos trabajo manual."
+      },
+      {
+        "titulo": "Claude como analista de tu negocio",
+        "descripcion": "Conecto Claude con los sistemas de tu empresa, como Siigo o Google Drive, con un servidor MCP. Preguntas en español y recibes informes con tus cifras, con acceso de solo lectura y un registro de cada consulta."
       }
     ],
     "servicios_seccion": {
@@ -35,19 +39,19 @@
     },
     "ecosistema": {
       "titulo": "Más allá de la hoja de vida",
-      "descripcion": "Tres secciones: código backend, apps y mi lab personal. Cada proyecto que corre tiene su propio subdominio.",
+      "descripcion": "Tres secciones con proyectos que corren hoy: código backend, una app para un cliente y mi lab personal.",
       "tarjetas": [
         {
           "id": "code",
-          "estado": "Próximamente",
+          "estado": "Activo",
           "titulo": "Code",
-          "descripcion": "Proyectos backend con Java y Spring Boot, para ver cómo trabajo."
+          "descripcion": "Proyectos backend con Java y Spring Boot. Branch Hub tiene demo pública, Swagger y Grafana."
         },
         {
           "id": "apps",
-          "estado": "Próximamente",
+          "estado": "Activo",
           "titulo": "Apps",
-          "descripcion": "Apps gratis y de pago que puedes usar, comprar o licenciar."
+          "descripcion": "Apps para negocios reales. La primera convierte a Claude en el analista de un taller, con datos de Siigo y Google Drive, y está en producción."
         },
         {
           "id": "lab",
@@ -96,6 +100,10 @@
       {
         "titulo": "Process and report automation",
         "descripcion": "I automate processes and reports with Python and Power BI. Less manual work."
+      },
+      {
+        "titulo": "Claude as your business analyst",
+        "descripcion": "I connect Claude to your company's systems, like Siigo or Google Drive, with an MCP server. You ask in plain words and get reports with your figures, with read-only access and a log of every query."
       }
     ],
     "servicios_seccion": {
@@ -103,19 +111,19 @@
     },
     "ecosistema": {
       "titulo": "Beyond the CV",
-      "descripcion": "Three sections: backend code, apps, and my personal lab. Each project that is running has its own subdomain.",
+      "descripcion": "Three sections with projects that run today: backend code, an app for a client, and my personal lab.",
       "tarjetas": [
         {
           "id": "code",
-          "estado": "Soon",
+          "estado": "Active",
           "titulo": "Code",
-          "descripcion": "Backend projects with Java and Spring Boot, to show how I work."
+          "descripcion": "Backend projects with Java and Spring Boot. Branch Hub has a public demo, Swagger UI, and Grafana."
         },
         {
           "id": "apps",
-          "estado": "Soon",
+          "estado": "Active",
           "titulo": "Apps",
-          "descripcion": "Free and paid apps you can use, buy, or license."
+          "descripcion": "Apps for real businesses. The first one turns Claude into the analyst of an auto-repair business, with data from Siigo and Google Drive, and runs in production."
         },
         {
           "id": "lab",
